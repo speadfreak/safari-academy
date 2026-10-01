@@ -23,7 +23,12 @@
  *     is reachable and everything runs normally.
  */
 import { execSync } from 'node:child_process'
-import { PrismaClient } from '@prisma/client'
+import { config } from 'dotenv'
+
+// Load local .env with override so a stale shell DATABASE_URL doesn't win.
+// On Vercel there is no .env file (env vars are injected by the platform), so
+// this is a no-op in production. MUST run before PrismaClient is imported.
+config({ override: true })
 
 async function main() {
   // --------------------------------------------------------------
@@ -44,7 +49,8 @@ async function main() {
   // --------------------------------------------------------------
   // 2. Count users to decide whether to seed
   // --------------------------------------------------------------
-  let db: PrismaClient | null = null
+  const { PrismaClient } = await import('@prisma/client')
+  let db: InstanceType<typeof PrismaClient> | null = null
   try {
     db = new PrismaClient()
     const userCount = await db.user.count()
