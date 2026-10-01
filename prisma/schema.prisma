@@ -1,0 +1,506 @@
+// Safari Academy — Prisma Schema
+// SQLite datasource
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================================
+// AUTH & USERS
+// ============================================================
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String
+  passwordHash String
+  role         String   @default("ADMIN") // SUPER_ADMIN | ADMIN | EDITOR
+  avatar       String?
+  active       Boolean  @default(true)
+  mustChangePw Boolean  @default(false)
+  lastLoginAt  DateTime?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  auditLogs AuditLog[]
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  user      User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+  action    String // CREATE | UPDATE | DELETE | LOGIN | LOGOUT
+  entity    String
+  entityId  String?
+  summary   String
+  meta      String?
+  createdAt DateTime @default(now())
+
+  @@index([entity])
+  @@index([createdAt])
+}
+
+model Setting {
+  id    String @id @default(cuid())
+  key   String @unique
+  value String // JSON-encoded value
+  group String @default("general")
+  updatedAt DateTime @updatedAt
+}
+
+// ============================================================
+// HERO & HOME
+// ============================================================
+
+model HeroSlide {
+  id          String  @id @default(cuid())
+  title       String
+  subtitle    String
+  mediaType   String  @default("image") // image | video
+  mediaUrl    String
+  posterUrl   String?
+  ctaLabel    String?
+  ctaLink     String?
+  cta2Label   String?
+  cta2Link    String?
+  overlay     Int     @default(40) // 0-100
+  order       Int     @default(0)
+  visible     Boolean @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model HomeSection {
+  id      String @id @default(cuid())
+  key     String @unique // hero, welcome, whyChoose, journey, campuses, programs, admissions, gallery, news, events, testimonials, achievements, alumni, virtualTour, finalCta, newsletter
+  title   String
+  order   Int    @default(0)
+  visible Boolean @default(true)
+}
+
+// ============================================================
+// BRANCHES / CAMPUSES
+// ============================================================
+
+model Branch {
+  id           String   @id @default(cuid())
+  name         String
+  slug         String   @unique
+  tagline      String?
+  description  String
+  address      String?
+  phone        String?
+  email        String?
+  principal    String?
+  grades       String? // comma-separated, e.g. "KG, Primary, Middle, High"
+  facilities   String? // JSON array
+  stats        String? // JSON: {students, teachers, founded}
+  mapEmbedUrl  String?
+  videoTourUrl String?
+  videoPoster  String?
+  panorama360  String?
+  coverImage   String?
+  order        Int      @default(0)
+  visible      Boolean  @default(true)
+  featured     Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  images BranchImage[]
+}
+
+model BranchImage {
+  id       String @id @default(cuid())
+  branchId String
+  branch   Branch @relation(fields: [branchId], references: [id], onDelete: Cascade)
+  url      String
+  alt      String?
+  caption  String?
+  order    Int    @default(0)
+}
+
+// ============================================================
+// TEAM (Leadership + Staff)
+// ============================================================
+
+model TeamMember {
+  id          String  @id @default(cuid())
+  type        String  @default("LEADERSHIP") // LEADERSHIP | STAFF
+  name        String
+  role        String
+  department  String?
+  bio         String?
+  fullBio     String?
+  education   String?
+  yearsOfService Int?
+  quote       String?
+  photo       String?
+  email       String?
+  phone       String?
+  linkedin    String?
+  twitter     String?
+  featured    Boolean @default(false)
+  order        Int    @default(0)
+  visible      Boolean @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ============================================================
+// ABOUT: timeline, values
+// ============================================================
+
+model TimelineMilestone {
+  id    String @id @default(cuid())
+  year  String
+  title String
+  description String
+  icon  String?
+  order Int @default(0)
+}
+
+model Feature {
+  id          String @id @default(cuid())
+  section     String @default("whyChoose") // whyChoose, values, facilities
+  icon        String?
+  title       String
+  description String
+  order       Int @default(0)
+  visible     Boolean @default(true)
+}
+
+// ============================================================
+// ACADEMICS
+// ============================================================
+
+model Program {
+  id          String  @id @default(cuid())
+  level       String  @unique // KG, Primary, Middle, High
+  title       String
+  agesRange   String?
+  description String
+  subjects    String? // JSON array
+  goals       String? // JSON array
+  classSize   String?
+  icon        String?
+  order       Int @default(0)
+  visible     Boolean @default(true)
+}
+
+model FacilityItem {
+  id          String  @id @default(cuid())
+  title       String
+  description String
+  icon        String?
+  images      String? // JSON array
+  order       Int @default(0)
+  visible     Boolean @default(true)
+}
+
+// ============================================================
+// ADMISSIONS
+// ============================================================
+
+model AdmissionStep {
+  id          String @id @default(cuid())
+  title       String
+  description String
+  icon        String?
+  order       Int @default(0)
+  visible     Boolean @default(true)
+}
+
+model AdmissionRequirement {
+  id       String @id @default(cuid())
+  level    String // KG | Primary | Middle | High
+  items    String // JSON array
+  order    Int @default(0)
+}
+
+model ImportantDate {
+  id    String @id @default(cuid())
+  date  String
+  label String
+  description String?
+  order Int @default(0)
+}
+
+model Scholarship {
+  id          String @id @default(cuid())
+  title       String
+  description String
+  amount      String?
+  eligibility String?
+  order       Int @default(0)
+  visible     Boolean @default(true)
+}
+
+model FeeTable {
+  id           String @id @default(cuid())
+  title        String
+  academicYear String
+  note         String?
+  currency     String @default("ETB")
+  pdfUrl       String?
+  published    Boolean @default(true)
+  order        Int @default(0)
+  columns      FeeColumn[]
+  rows         FeeRow[]
+}
+
+model FeeColumn {
+  id        String @id @default(cuid())
+  tableId   String
+  table     FeeTable @relation(fields: [tableId], references: [id], onDelete: Cascade)
+  label     String
+  order     Int @default(0)
+}
+
+model FeeRow {
+  id        String @id @default(cuid())
+  tableId   String
+  table     FeeTable @relation(fields: [tableId], references: [id], onDelete: Cascade)
+  label     String
+  cells     String // JSON array of strings aligned to columns
+  highlight Boolean @default(false)
+  order     Int @default(0)
+}
+
+// ============================================================
+// NEWS
+// ============================================================
+
+model NewsPost {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  excerpt     String?
+  body        String
+  coverImage  String?
+  gallery     String? // JSON array
+  category    String?
+  tags        String? // JSON array
+  author      String?
+  status      String   @default("published") // draft | scheduled | published
+  featured    Boolean  @default(false)
+  publishedAt DateTime @default(now())
+  readingTime Int?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ============================================================
+// EVENTS
+// ============================================================
+
+model Event {
+  id            String   @id @default(cuid())
+  title         String
+  slug          String   @unique
+  excerpt       String?
+  body          String
+  coverImage    String?
+  gallery       String?
+  startDateTime DateTime
+  endDateTime   DateTime?
+  venue         String?
+  branchId      String?
+  category      String?
+  status        String   @default("upcoming") // upcoming | past | cancelled
+  featured      Boolean  @default(false)
+  registrationOpen Boolean @default(false)
+  mapEmbedUrl   String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  registrations EventRegistration[]
+}
+
+model EventRegistration {
+  id        String @id @default(cuid())
+  eventId   String
+  event     Event  @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  name      String
+  email     String
+  phone     String?
+  count     Int @default(1)
+  note      String?
+  status    String @default("new") // new | confirmed | cancelled
+  createdAt DateTime @default(now())
+}
+
+// ============================================================
+// GALLERY (Student Life)
+// ============================================================
+
+model GalleryItem {
+  id        String  @id @default(cuid())
+  title     String?
+  caption   String?
+  type      String  @default("image") // image | video
+  url       String
+  poster    String?
+  category  String  @default("Campus") // Sports, Arts, Trips, Ceremonies, Clubs, Campus
+  branchId  String?
+  featured  Boolean @default(false)
+  order     Int @default(0)
+  visible   Boolean @default(true)
+  createdAt DateTime @default(now())
+}
+
+model GalleryCategory {
+  id    String @id @default(cuid())
+  name  String @unique
+  order Int @default(0)
+}
+
+// ============================================================
+// ALUMNI
+// ============================================================
+
+model AlumniProfile {
+  id             String  @id @default(cuid())
+  name           String
+  graduationYear String
+  currentRole    String?
+  company        String?
+  quote          String?
+  bio            String?
+  photo          String?
+  sector         String?
+  linkedin       String?
+  twitter        String?
+  featured       Boolean @default(false)
+  order          Int @default(0)
+  visible        Boolean @default(true)
+  createdAt      DateTime @default(now())
+}
+
+model AlumniApplication {
+  id        String @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  gradYear  String
+  program   String?
+  message   String?
+  status    String @default("new")
+  createdAt DateTime @default(now())
+}
+
+// ============================================================
+// TESTIMONIALS, ACHIEVEMENTS, PARTNERS, FAQS
+// ============================================================
+
+model Testimonial {
+  id        String  @id @default(cuid())
+  name     String
+  role     String? // Parent, Student, Alumni
+  quote    String
+  rating   Int     @default(5)
+  avatar   String?
+  order    Int @default(0)
+  visible  Boolean @default(true)
+}
+
+model Achievement {
+  id          String @id @default(cuid())
+  year        String
+  title       String
+  description String?
+  icon        String?
+  order       Int @default(0)
+  visible     Boolean @default(true)
+}
+
+model Partner {
+  id    String @id @default(cuid())
+  name  String
+  logo  String?
+  link  String?
+  order Int @default(0)
+  visible Boolean @default(true)
+}
+
+model Faq {
+  id       String @id @default(cuid())
+  question String
+  answer   String
+  category String @default("General")
+  order    Int @default(0)
+  visible  Boolean @default(true)
+}
+
+model PolicyDocument {
+  id          String @id @default(cuid())
+  title       String
+  description String?
+  fileUrl     String?
+  order       Int @default(0)
+  visible     Boolean @default(true)
+}
+
+model LegalPage {
+  id          String @id @default(cuid())
+  slug        String @unique // privacy | terms
+  title       String
+  body        String
+  updatedAt   String? // last updated label
+}
+
+// ============================================================
+// INBOX (contact, admissions inquiries, subscribers)
+// ============================================================
+
+model ContactMessage {
+  id        String @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  subject   String?
+  campus    String?
+  message   String
+  status    String @default("new") // new | read | archived | starred
+  reply     String?
+  createdAt DateTime @default(now())
+}
+
+model AdmissionInquiry {
+  id        String @id @default(cuid())
+  parentName String
+  email     String
+  phone     String?
+  studentName String?
+  gradeLevel String?
+  campus    String?
+  message   String?
+  status    String @default("new")
+  createdAt DateTime @default(now())
+}
+
+model Subscriber {
+  id        String @id @default(cuid())
+  email     String @unique
+  createdAt DateTime @default(now())
+}
+
+// ============================================================
+// MEDIA LIBRARY
+// ============================================================
+
+model MediaAsset {
+  id        String @id @default(cuid())
+  url       String
+  filename  String
+  mime      String
+  size      Int?
+  width     Int?
+  height    Int?
+  alt       String?
+  createdAt DateTime @default(now())
+}
