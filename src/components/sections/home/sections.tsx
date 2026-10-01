@@ -58,10 +58,10 @@ export function WelcomeSection() {
             A school where <span className="text-gradient-yellow-green">curiosity</span> becomes <span className="text-gradient-yellow-green">character</span>.
           </h2>
           <p className="mt-6 text-base md:text-lg text-foreground/75 leading-relaxed">
-            For two decades, Safari Academy has nurtured young minds across Addis Ababa. Eight campuses. One spirit. A future-ready education rooted in Ethiopian values, fuelled by curiosity, and built on the belief that every child deserves to discover their spark.
+            For two decades, Safari Academy has nurtured young minds across Addis Ababa. What began in 2005 with 8 staff and 107 students has grown into 6 campuses serving nearly 6,000 learners. Our motto — “Your Kids, Our Kids” — is the heartbeat of everything we do.
           </p>
           <blockquote className="mt-8 pl-5 border-l-4 border-primary italic text-foreground/80">
-            “{director?.quote || 'Education is the most powerful weapon you can use to change the world.'}”
+            “{director?.quote || 'Your Kids, Our Kids.'}”
           </blockquote>
           <div className="mt-8 flex flex-wrap gap-4">
             <MagneticButton as="button" onClick={() => navigate('about')} className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-secondary text-secondary-foreground font-semibold text-sm hover:brightness-105 transition">
@@ -126,7 +126,7 @@ export function WhyChooseSection() {
 // MARQUEE
 // ============================================================
 export function MarqueeStrip() {
-  const items = ['Future-Ready', 'Bilingual', 'Character-First', 'Eight Campuses', '5,000+ Students', 'Award-Winning', 'Since 2005', 'STEM Focus', 'Arts & Culture', 'Sports Excellence']
+  const items = ['Your Kids, Our Kids', 'Since 2005', '6,000+ Students', '560+ Staff', '6 Campuses', 'Academic Excellence', 'Integrity & Discipline', 'Innovation', 'Global Perspective', '20 Years of Excellence']
   return (
     <div className="relative overflow-hidden py-6 border-y border-border bg-gradient-to-r from-[#FFD500] via-[#FFE24D] to-[#B6F2A0]">
       <div className="marquee text-[#06130B] font-display font-extrabold text-2xl md:text-4xl uppercase tracking-tight">
@@ -160,7 +160,7 @@ export function LearningPathSection() {
         <div className="text-center mb-12">
           <span className="text-[#FFE24D] text-xs font-semibold uppercase tracking-widest">The Safari Journey</span>
           <h2 className="mt-3 font-display text-3xl md:text-5xl font-extrabold">
-            From <span className="text-gradient-yellow-lime">first steps</span> to <span className="text-gradient-yellow-lime">graduation</span>
+            From <span className="text-gradient-yellow-lime">first steps</span> to <span className="text-gradient-yellow-lime">university</span>
           </h2>
         </div>
 
@@ -204,7 +204,7 @@ export function CampusesSection() {
       <div className="container-cinematic">
         <SectionHeading
           eyebrow="Our Campuses"
-          title={<>Eight campuses. <span className="text-gradient-yellow-green">One spirit.</span></>}
+          title={<>Six campuses. <span className="text-gradient-yellow-green">One family.</span></>}
           subtitle="Each Safari campus has its own character, yet shares the same heartbeat of curiosity and care."
         />
         <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -616,7 +616,7 @@ export function FinalCTASection() {
               Your child's <span className="text-gradient-yellow-lime">future</span> starts here.
             </h2>
             <p className="mt-4 text-white/80 md:text-lg">
-              Join 5,000+ families across Addis Ababa who chose Safari Academy — where every learner finds their spark.
+              Join 6,000+ families across Addis Ababa who chose Safari Academy — where every learner finds their spark.
             </p>
             <div className="mt-8 flex flex-wrap gap-3 justify-center">
               <MagneticButton as="button" onClick={() => navigate('admissions')} className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#FFD500] text-[#06130B] font-bold text-sm hover:bg-[#FFE24D] transition shadow-xl">

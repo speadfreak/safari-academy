@@ -15,8 +15,8 @@ export function BranchesListPage() {
   return (
     <PageShell
       eyebrow="Our Campuses"
-      title={<>Eight campuses across <span className="text-gradient-yellow-green">Addis Ababa</span>.</>}
-      subtitle="Find the Safari campus near you. Each one with its own character, all sharing the same spirit."
+      title={<>Six campuses across <span className="text-gradient-yellow-green">Addis Ababa</span>.</>}
+      subtitle="2 Kindergartens, 3 Primary Schools, and 1 Secondary & College Preparatory campus — find the Safari campus near you."
       crumbs={[{ label: 'Branches' }]}
     >
       <section className="py-20 md:py-28">

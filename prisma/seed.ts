@@ -94,7 +94,7 @@ export async function seedDatabase() {
   // ---------- SETTINGS (JSON-encoded values) ----------
   const settings = [
     ['siteName', 'Safari Academy', 'branding'],
-    ['tagline', 'Nurturing Young Minds • Building Ethiopia\'s Future Leaders', 'branding'],
+    ['tagline', 'Your Kids, Our Kids • Educating Minds, Inspiring Hearts', 'branding'],
     ['since', '2005', 'branding'],
     ['logoLight', '/brand/logo-light.svg', 'branding'],
     ['logoDark', '/brand/logo-dark.svg', 'branding'],
@@ -111,15 +111,15 @@ export async function seedDatabase() {
     ['whatsapp', '+251973077535', 'contact'],
     ['mapEmbedUrl', 'https://www.openstreetmap.org/export/embed.html?bbox=38.79%2C9.00%2C38.85%2C9.05&layer=mapnik', 'contact'],
     ['mapDirectionsUrl', 'https://www.openstreetmap.org/?mlat=9.025&mlon=38.820#map=15/9.025/38.820', 'contact'],
-    ['footerText', 'Safari Academy — where curiosity meets character, and every learner finds their spark.', 'footer'],
+    ['footerText', 'Safari Academy — \"Your Kids, Our Kids.\" Educating minds and inspiring hearts since 2005.', 'footer'],
     ['copyrightText', '© 2026 Safari Academy. All Rights Reserved.', 'footer'],
     ['creditText', 'Designed with passion by Joseph James', 'footer'],
     ['creditLink', 'https://onyx-jj.onrender.com/', 'footer'],
     ['ogImage', IMG('og-safari', 1200, 630), 'seo'],
     ['seoTitleTemplate', '%s — Safari Academy', 'seo'],
-    ['seoDescription', 'Safari Academy, Addis Ababa — a future-forward, multi-campus school nurturing young minds since 2005.', 'seo'],
+    ['seoDescription', 'Safari Academy, Addis Ababa — Ethiopia\'s preferred private school since 2005. 6,000+ students, 560+ staff, 6 campuses. Your Kids, Our Kids.', 'seo'],
     ['preloaderEnabled', 'true', 'preloader'],
-    ['preloaderTagline', 'Since 2005 • Nurturing Young Minds', 'preloader'],
+    ['preloaderTagline', 'Since 2005 • Your Kids, Our Kids', 'preloader'],
     ['admissionsOpen', 'true', 'admissions'],
     ['admissionsDeadline', '2026-08-15', 'admissions'],
     ['cookieText', 'We use cookies to enhance your browsing experience. By continuing, you agree to our use of cookies.', 'cookies'],
@@ -140,19 +140,19 @@ export async function seedDatabase() {
   // ---------- HERO SLIDES ----------
   const heroSlides = [
     {
-      title: 'Where Young Minds Take Flight',
-      subtitle: 'A future-forward, multi-campus school in Addis Ababa — nurturing curiosity, character, and creativity since 2005.',
+      title: 'Your Kids, Our Kids',
+      subtitle: 'Educating minds and inspiring hearts since 2005. From 107 students in a single classroom to 6,000+ learners across six campuses — Ethiopia\'s story of growth, discipline, and dreams.',
       mediaUrl: IMG('safari-hero-1', 1920, 1080),
       ctaLabel: 'Apply Now',
       ctaLink: '#admissions',
-      cta2Label: 'Virtual Tour',
-      cta2Link: '#virtual-tour',
+      cta2Label: 'Our Story',
+      cta2Link: '#about',
       overlay: 45,
       order: 0,
     },
     {
-      title: 'Eight Campuses. One Spirit.',
-      subtitle: 'From Umar Sibhatu to Summit, Raey, Fird Bet, Figa and beyond — discover a campus near you.',
+      title: 'Six Campuses. One Family.',
+      subtitle: '2 Kindergartens, 3 Primary Schools, and 1 Secondary & College Preparatory campus — serving nearly 6,000 students with 560+ dedicated teachers and staff across Addis Ababa.',
       mediaUrl: IMG('safari-hero-2', 1920, 1080),
       ctaLabel: 'Explore Campuses',
       ctaLink: '#branches',
@@ -162,8 +162,8 @@ export async function seedDatabase() {
       order: 1,
     },
     {
-      title: 'Learning That Feels Like an Adventure',
-      subtitle: 'Future-ready curriculum, world-class facilities, and a Safari spirit of discovery.',
+      title: 'Educating Minds, Inspiring Hearts',
+      subtitle: 'A 20-year journey of academic excellence, strong discipline, and moral values — producing outstanding results in national examinations and university placements.',
       mediaUrl: IMG('safari-hero-3', 1920, 1080),
       ctaLabel: 'Discover Academics',
       ctaLink: '#academics',
@@ -202,16 +202,14 @@ export async function seedDatabase() {
     })
   }
 
-  // ---------- BRANCHES (8 campuses) ----------
+  // ---------- BRANCHES (6 campuses: 2 KG + 3 Primary + 1 Secondary) ----------
   const branches = [
-    { name: 'Umar Sibhatu', slug: 'umar-sibhatu', tagline: 'The Flagship Campus', description: 'Our historic flagship campus in the heart of Addis Ababa, blending heritage with cutting-edge learning spaces. Home to over 1,200 students from KG to High School.', principal: 'Dr. Hanna Bekele', grades: 'KG, Primary, Middle, High', stats: JSON.stringify({ students: 1240, teachers: 86, founded: 2005 }), featured: true, coverImage: IMG('campus-umar', 1600, 1000) },
-    { name: 'Summit', slug: 'summit', tagline: 'The Innovation Campus', description: 'Perched at Summit area, this campus leads our STEM and innovation programs with state-of-the-art labs and a maker-space.', principal: 'Mr. Daniel Assefa', grades: 'Primary, Middle, High', stats: JSON.stringify({ students: 820, teachers: 58, founded: 2010 }), featured: true, coverImage: IMG('campus-summit', 1600, 1000) },
-    { name: 'Raey', slug: 'raey', tagline: 'The Early Years Hub', description: 'A nurturing environment tailored for our youngest learners, with play-based learning and bright, open classrooms.', principal: 'Ms. Marta Girma', grades: 'KG, Primary', stats: JSON.stringify({ students: 540, teachers: 38, founded: 2012 }), coverImage: IMG('campus-raey', 1600, 1000) },
-    { name: 'Fird Bet', slug: 'fird-bet', tagline: 'The Arts & Culture Campus', description: 'Where creativity flourishes — music halls, art studios, and a 400-seat auditorium.', principal: 'Mr. Yonas Tesfaye', grades: 'Primary, Middle, High', stats: JSON.stringify({ students: 690, teachers: 49, founded: 2014 }), coverImage: IMG('campus-fird', 1600, 1000) },
-    { name: 'Figa', slug: 'figa', tagline: 'The Sports Academy', description: 'Built around wellness and athletics, with full-size football pitch, basketball courts, and an indoor sports hall.', principal: 'Coach Bereket Alemu', grades: 'Primary, Middle, High', stats: JSON.stringify({ students: 610, teachers: 44, founded: 2016 }), coverImage: IMG('campus-figa', 1600, 1000) },
-    { name: 'Bole', slug: 'bole', tagline: 'The International Wing', description: 'An international curriculum track serving families across Bole and surrounding areas.', principal: 'Dr. Sara Kebede', grades: 'KG, Primary, Middle, High', stats: JSON.stringify({ students: 720, teachers: 51, founded: 2018 }), coverImage: IMG('campus-bole', 1600, 1000) },
-    { name: 'Cmc', slug: 'cmc', tagline: 'The Future-Ready Campus', description: 'Our newest campus with future-ready classrooms, immersive technology, and sustainable design.', principal: 'Mr. Nahom Solomon', grades: 'KG, Primary, Middle', stats: JSON.stringify({ students: 480, teachers: 35, founded: 2021 }), coverImage: IMG('campus-cmc', 1600, 1000) },
-    { name: 'Gerji', slug: 'gerji', tagline: 'The Community Campus', description: 'A vibrant, community-driven campus fostering local engagement and global outlook.', principal: 'Ms. Ruth Tadesse', grades: 'KG, Primary', stats: JSON.stringify({ students: 410, teachers: 30, founded: 2023 }), coverImage: IMG('campus-gerji', 1600, 1000) },
+    { name: 'Umar Sibhatu', slug: 'umar-sibhatu', tagline: 'Flagship Campus • Secondary & College Preparatory', description: 'Our historic flagship — where the Safari story began in 2005. Now home to our Secondary & College Preparatory program, producing outstanding national examination results and university placements.', principal: 'Dr. Hanna Bekele', grades: 'Secondary & College Preparatory (Grades 9–12)', stats: JSON.stringify({ students: 1100, teachers: 95, founded: 2005 }), featured: true, coverImage: IMG('campus-umar', 1600, 1000) },
+    { name: 'Summit Primary', slug: 'summit', tagline: 'Primary Campus', description: 'A thriving primary campus known for innovative teaching methodologies, modern learning materials, and structured student assessment systems.', principal: 'Mr. Daniel Assefa', grades: 'Primary (Grades 1–8)', stats: JSON.stringify({ students: 1400, teachers: 120, founded: 2010 }), featured: true, coverImage: IMG('campus-summit', 1600, 1000) },
+    { name: 'Raey Kindergarten', slug: 'raey', tagline: 'Kindergarten Campus', description: 'A nurturing early-years haven where our youngest learners discover the joy of learning through play, music, and exploration.', principal: 'Ms. Marta Girma', grades: 'Kindergarten (KG 1–3)', stats: JSON.stringify({ students: 850, teachers: 65, founded: 2012 }), coverImage: IMG('campus-raey', 1600, 1000) },
+    { name: 'Fird Bet Primary', slug: 'fird-bet', tagline: 'Primary Campus', description: 'A vibrant primary campus combining academic rigor with arts, music, and character education — where every child is known by name.', principal: 'Mr. Yonas Tesfaye', grades: 'Primary (Grades 1–8)', stats: JSON.stringify({ students: 1300, teachers: 110, founded: 2014 }), coverImage: IMG('campus-fird', 1600, 1000) },
+    { name: 'Figa Kindergarten', slug: 'figa', tagline: 'Kindergarten Campus', description: 'Our second kindergarten campus — a safe, joyful, and stimulating environment built specially for our youngest learners\' first steps into education.', principal: 'Ms. Almaz Tesfaye', grades: 'Kindergarten (KG 1–3)', stats: JSON.stringify({ students: 650, teachers: 50, founded: 2016 }), coverImage: IMG('campus-figa', 1600, 1000) },
+    { name: 'Bole Primary', slug: 'bole', tagline: 'Primary Campus', description: 'Our newest primary campus, serving families across Bole and surrounding areas with the same Safari commitment to excellence, discipline, and moral values.', principal: 'Dr. Sara Kebede', grades: 'Primary (Grades 1–8)', stats: JSON.stringify({ students: 700, teachers: 60, founded: 2019 }), coverImage: IMG('campus-bole', 1600, 1000) },
   ]
   for (const [i, b] of branches.entries()) {
     const branch = await db.branch.create({
@@ -243,12 +241,12 @@ export async function seedDatabase() {
 
   // ---------- TEAM ----------
   const leadership = [
-    { name: 'Dr. Aklile Mekonnen', role: 'Founder & Director General', bio: 'Visionary educator with 30+ years shaping Ethiopia\'s future leaders.', photo: IMG('lead-aklile', 600, 600), featured: true, fullBio: 'Dr. Aklile Mekonnen founded Safari Academy in 2005 with a vision of a school where every child\'s curiosity is celebrated. With a PhD in Educational Leadership from Addis Ababa University and decades of teaching experience, she has grown the academy into eight thriving campuses serving over 5,000 students.' },
-    { name: 'Mr. Joseph James', role: 'Executive Director', bio: 'Leads strategy and innovation across all eight campuses.', photo: IMG('lead-joseph', 600, 600), fullBio: 'Joseph James brings a global perspective to Safari Academy, having worked in educational leadership across three continents. He oversees strategic direction, partnerships, and the academy\'s digital transformation.' },
-    { name: 'Dr. Hanna Bekele', role: 'Principal, Umar Sibhatu Campus', bio: 'Doctorate in Curriculum Development, 22 years of service.', photo: IMG('lead-hanna', 600, 600), fullBio: 'Dr. Hanna Bekele leads our flagship campus with warmth and rigor. She pioneered our bilingual curriculum framework.' },
-    { name: 'Mr. Daniel Assefa', role: 'Principal, Summit Campus', bio: 'STEM advocate and innovation lab founder.', photo: IMG('lead-daniel', 600, 600), fullBio: 'Daniel founded Safari\'s first maker-space and leads our award-winning robotics program.' },
-    { name: 'Ms. Marta Girma', role: 'Principal, Raey Campus', bio: 'Early childhood specialist.', photo: IMG('lead-marta', 600, 600), fullBio: 'Marta is a passionate advocate for play-based learning and has shaped our early-years philosophy.' },
-    { name: 'Mr. Yonas Tesfaye', role: 'Director of Arts & Culture', bio: 'Award-winning composer and educator.', photo: IMG('lead-yonas', 600, 600), fullBio: 'Yonas leads our orchestra, choir, and visual arts programs across all campuses.' },
+    { name: 'Dr. Aklile Mekonnen', role: 'Founder & Director General', bio: 'Visionary educator who founded Safari Academy in 2005 with 8 staff and 107 students — and grew it into Ethiopia\'s preferred school.', photo: IMG('lead-aklile', 600, 600), featured: true, fullBio: 'Dr. Aklile Mekonnen founded Safari Academy in 2005 with a clear mission: to provide quality education, strong discipline, and moral values. Starting with just 8 dedicated staff members and 107 students from Kindergarten to Grade 2, she nurtured the academy through two decades of growth into one of Ethiopia\'s most respected private educational institutions — now serving nearly 6,000 students with 560+ teachers and staff across six campuses. Her guiding motto, "Your Kids, Our Kids," remains the heartbeat of every Safari classroom.' },
+    { name: 'Mr. Joseph James', role: 'Executive Director', bio: 'Leads strategy and operations across all six campuses, ensuring the Safari standard of excellence.', photo: IMG('lead-joseph', 600, 600), fullBio: 'Joseph James oversees strategic direction, partnerships, and the academy\'s continued growth. He ensures that every campus — from Kindergarten to College Preparatory — upholds the motto "Your Kids, Our Kids" and the commitment to academic excellence, integrity, and innovation.' },
+    { name: 'Dr. Hanna Bekele', role: 'Principal, Umar Sibhatu Campus (Secondary)', bio: 'Leads our flagship secondary & college preparatory campus with a focus on national exam excellence.', photo: IMG('lead-hanna', 600, 600), fullBio: 'Dr. Hanna Bekele leads our Secondary & College Preparatory campus, producing outstanding results in national examinations and university entrance placements year after year.' },
+    { name: 'Mr. Daniel Assefa', role: 'Principal, Summit Primary Campus', bio: 'Champions innovative teaching methodologies and modern learning materials.', photo: IMG('lead-daniel', 600, 600), fullBio: 'Daniel Assefa leads our Summit Primary campus, known for its improved teaching methodologies, structured assessment systems, and student-centered learning.' },
+    { name: 'Ms. Marta Girma', role: 'Principal, Raey Kindergarten', bio: 'Early childhood specialist nurturing our youngest learners\' first steps.', photo: IMG('lead-marta', 600, 600), fullBio: 'Marta Girma creates the joyful, safe, and stimulating environment where our youngest learners discover the love of learning — the foundation of every Safari student\'s journey.' },
+    { name: 'Mr. Yonas Tesfaye', role: 'Principal, Fird Bet Primary Campus', bio: 'Combines academic rigor with arts and character education.', photo: IMG('lead-yonas', 600, 600), fullBio: 'Yonas Tesfaye leads our Fird Bet Primary campus, where academic excellence meets character development and every child is known by name.' },
   ]
   for (const [i, t] of leadership.entries()) {
     await db.teamMember.create({ data: { ...t, type: 'LEADERSHIP', order: i, visible: true, quote: 'Education is the most powerful weapon you can use to change the world.' } })
@@ -267,14 +265,12 @@ export async function seedDatabase() {
     await db.teamMember.create({ data: { ...s, type: 'STAFF', order: i, visible: true } })
   }
 
-  // ---------- TIMELINE ----------
+  // ---------- TIMELINE (real Safari Academy history) ----------
   const timeline = [
-    { year: '2005', title: 'The Journey Begins', description: 'Safari Academy opens its doors at Umar Sibhatu with 80 students and a bold vision.' },
-    { year: '2010', title: 'Summit Campus Opens', description: 'Our second campus launches, introducing the STEM-focused track.' },
-    { year: '2014', title: 'Arts & Culture Campus', description: 'Fird Bet campus opens with a 400-seat auditorium.' },
-    { year: '2018', title: 'International Wing', description: 'Bole campus launches with a full international curriculum.' },
-    { year: '2021', title: 'Future-Ready Campus', description: 'CMC campus opens with immersive technology and sustainable design.' },
-    { year: '2024', title: '5,000+ Students', description: 'Safari Academy now serves over 5,000 students across 8 campuses.' },
+    { year: '2005 G.C', title: 'The Journey Begins', description: 'Safari Academy was founded in Addis Ababa with the motto "Your Kids, Our Kids." It opened with just 8 dedicated staff members and 107 students enrolled from Kindergarten to Grade 2.' },
+    { year: '2010 G.C', title: 'Expansion & Innovation', description: 'The academy expanded its primary education programs and introduced improved teaching methodologies, modern learning materials, and structured student assessment systems.' },
+    { year: '2015 G.C', title: 'Secondary Education Launch', description: 'Safari Academy launched its secondary education program and strengthened exam preparation strategies, producing outstanding results in national examinations and university entrance placements.' },
+    { year: '2025 G.C', title: 'Ethiopia\'s Preferred School', description: 'Today, Safari Academy operates 2 Kindergarten campuses, 3 Primary Schools, and 1 Secondary & College Preparatory campus — serving nearly 6,000 students with 560+ teachers and staff. Recognized for academic performance, student discipline, and modern facilities.' },
   ]
   for (const [i, t] of timeline.entries()) {
     await db.timelineMilestone.create({ data: { ...t, order: i } })
@@ -282,32 +278,31 @@ export async function seedDatabase() {
 
   // ---------- WHY CHOOSE / VALUES ----------
   const whyChoose = [
-    { icon: 'Sparkles', title: 'Future-Ready Curriculum', description: 'STEM, robotics, coding, and critical thinking woven into every grade.' },
-    { icon: 'Heart', title: 'Character-First Education', description: 'We grow kind, courageous, and ethical young leaders.' },
-    { icon: 'Languages', title: 'Bilingual Excellence', description: 'Fluent in English and Amharic, with French and Arabic options.' },
-    { icon: 'Trophy', title: 'Award-Winning Programs', description: 'National robotics champions and regional debate winners.' },
-    { icon: 'Users', title: 'Small Class Sizes', description: '1:12 teacher-student ratio for personalized attention.' },
-    { icon: 'Globe', title: 'Global Outlook', description: 'Partnerships across 6 countries and growing.' },
+    { icon: 'Trophy', title: 'Academic Excellence', description: 'Commitment to high academic standards, continuous improvement, and outstanding student achievement — proven by national exam results.' },
+    { icon: 'Shield', title: 'Integrity & Discipline', description: 'Promoting ethical behavior, responsibility, respect, and strong moral values in every learner — the heart of our motto.' },
+    { icon: 'Cpu', title: 'Innovation', description: 'Encouraging creativity, critical thinking, and the use of modern teaching and learning approaches.' },
+    { icon: 'Globe', title: 'Global Perspective', description: 'Preparing students to succeed locally and globally with confidence, adaptability, and cultural awareness.' },
+    { icon: 'Users', title: '560+ Dedicated Staff', description: 'Highly qualified teachers and administrators who guide every student with care and expertise.' },
+    { icon: 'Heart', title: 'Your Kids, Our Kids', description: 'A 20-year promise — we treat every child as our own, nurturing both minds and hearts.' },
   ]
   for (const [i, f] of whyChoose.entries()) {
     await db.feature.create({ data: { ...f, section: 'whyChoose', order: i, visible: true } })
   }
   const values = [
-    { icon: 'Compass', title: 'Curiosity', description: 'We follow our questions wherever they lead.' },
-    { icon: 'Shield', title: 'Integrity', description: 'We do what is right, even when no one is watching.' },
-    { icon: 'HandHeart', title: 'Compassion', description: 'We care for our community and our planet.' },
-    { icon: 'Flame', title: 'Excellence', description: 'We pursue our personal best in all we do.' },
+    { icon: 'Trophy', title: 'Academic Excellence', description: 'Commitment to high academic standards, continuous improvement, and outstanding student achievement.' },
+    { icon: 'Shield', title: 'Integrity & Discipline', description: 'Promoting ethical behavior, responsibility, respect, and strong moral values in every learner.' },
+    { icon: 'Cpu', title: 'Innovation', description: 'Encouraging creativity, critical thinking, and the use of modern teaching and learning approaches.' },
+    { icon: 'Globe', title: 'Global Perspective', description: 'Preparing students to succeed locally and globally with confidence, adaptability, and cultural awareness.' },
   ]
   for (const [i, f] of values.entries()) {
     await db.feature.create({ data: { ...f, section: 'values', order: i, visible: true } })
   }
 
-  // ---------- PROGRAMS ----------
+  // ---------- PROGRAMS (real structure: 2 KG + 3 Primary + 1 Secondary) ----------
   const programs = [
-    { level: 'KG', title: 'Kindergarten', agesRange: '3–6 years', description: 'Play-based, child-led learning that builds a lifelong love of discovery.', subjects: JSON.stringify(['Phonics', 'Numeracy', 'Art & Music', 'Storytelling', 'Outdoor Play']), goals: JSON.stringify(['Social-emotional skills', 'Foundational literacy', 'Curiosity & wonder']), classSize: '12 per class' },
-    { level: 'Primary', title: 'Primary School', agesRange: '6–11 years', description: 'A rigorous, joyful foundation in literacy, numeracy, science, and the arts.', subjects: JSON.stringify(['English', 'Amharic', 'Mathematics', 'Science', 'Social Studies', 'Art', 'PE']), goals: JSON.stringify(['Reading fluency', 'Problem-solving', 'Collaboration']), classSize: '20 per class' },
-    { level: 'Middle', title: 'Middle School', agesRange: '11–14 years', description: 'A bridge years program exploring identity, passion, and deeper inquiry.', subjects: JSON.stringify(['STEM', 'Languages', 'Humanities', 'Coding', 'Design', 'Music']), goals: JSON.stringify(['Critical thinking', 'Self-direction', 'Project-based learning']), classSize: '22 per class' },
-    { level: 'High', title: 'High School', agesRange: '14–18 years', description: 'College-prep with AP-style tracks, dual enrollment, and global partnerships.', subjects: JSON.stringify(['Advanced Sciences', 'Mathematics', 'Literature', 'Economics', 'Computer Science', 'Foreign Languages']), goals: JSON.stringify(['University readiness', 'Leadership', 'Career exploration']), classSize: '18 per class' },
+    { level: 'KG', title: 'Kindergarten', agesRange: 'KG 1–3 (Ages 3–6)', description: 'A nurturing, play-based foundation where our youngest learners discover the joy of learning. Two dedicated KG campuses designed especially for early years.', subjects: JSON.stringify(['Phonics & Literacy', 'Numeracy', 'Amharic', 'Art & Music', 'Storytelling', 'Outdoor Play']), goals: JSON.stringify(['Social-emotional development', 'Foundational literacy & numeracy', 'Curiosity & wonder', 'Moral values from day one']), classSize: 'Small groups' },
+    { level: 'Primary', title: 'Primary School', agesRange: 'Grades 1–8 (Ages 6–14)', description: 'A rigorous, joyful foundation across three primary campuses — combining academic excellence with strong discipline, improved teaching methodologies, and structured assessment systems.', subjects: JSON.stringify(['English', 'Amharic', 'Mathematics', 'Science', 'Social Studies', 'ICT', 'Art', 'PE', 'Moral Education']), goals: JSON.stringify(['Academic excellence', 'Critical thinking & problem-solving', 'Ethical behavior & discipline', 'Creativity & innovation']), classSize: 'Structured classes' },
+    { level: 'Secondary', title: 'Secondary & College Preparatory', agesRange: 'Grades 9–12 (Ages 14–18)', description: 'Our flagship secondary program at Umar Sibhatu campus — producing outstanding national examination results and university entrance placements year after year.', subjects: JSON.stringify(['Advanced Sciences', 'Mathematics', 'Languages', 'Social Sciences', 'Natural Sciences', 'ICT', 'College Prep']), goals: JSON.stringify(['National exam excellence', 'University placement', 'Leadership & responsibility', 'Career readiness']), classSize: 'Exam-focused groups' },
   ]
   for (const [i, p] of programs.entries()) {
     await db.program.create({ data: { ...p, order: i, visible: true } })
@@ -531,14 +526,14 @@ export async function seedDatabase() {
     await db.testimonial.create({ data: { ...t, order: i, visible: true } })
   }
 
-  // ---------- ACHIEVEMENTS ----------
+  // ---------- ACHIEVEMENTS (real Safari Academy milestones) ----------
   const achievements = [
-    { year: '2025', title: 'National Robotics Champions', description: 'Gold medal at the Ethiopia National Robotics Olympiad.' },
-    { year: '2024', title: 'Top IB Results Nationwide', description: '100% pass rate with 4 perfect scores.' },
-    { year: '2024', title: 'East African Debate Cup', description: 'Winners of the East African Schools Debate Championship.' },
-    { year: '2023', title: 'Cambridge Excellence Award', description: 'Recognized for outstanding international curriculum delivery.' },
-    { year: '2022', title: '5,000+ Students Enrolled', description: 'Crossed the 5,000-student milestone across all campuses.' },
-    { year: '2021', title: 'Green School Certification', description: 'Awarded for sustainability and environmental education.' },
+    { year: '2005 G.C', title: 'Founded with 107 Students', description: 'Safari Academy opened with 8 staff members and 107 students (KG–Grade 2) under the motto "Your Kids, Our Kids."' },
+    { year: '2010 G.C', title: 'Primary Programs Expanded', description: 'Introduced improved teaching methodologies, modern learning materials, and structured student assessment systems.' },
+    { year: '2015 G.C', title: 'Secondary Education Launched', description: 'Opened the Secondary & College Preparatory program, producing outstanding national examination results.' },
+    { year: '2025 G.C', title: '6,000 Students • 6 Campuses', description: 'Now serving nearly 6,000 students with 560+ teachers and staff across 2 KG, 3 Primary, and 1 Secondary campus.' },
+    { year: '2025 G.C', title: 'Ethiopia\'s Preferred School', description: 'Recognized for academic performance, student discipline, modern facilities, and consistent success in national and international competitions.' },
+    { year: '2025 G.C', title: 'University Placement Excellence', description: 'Outstanding results in national examinations and university entrance placements — a 20-year track record of academic excellence.' },
   ]
   for (const [i, a] of achievements.entries()) {
     await db.achievement.create({ data: { ...a, order: i, visible: true } })

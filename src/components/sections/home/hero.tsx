@@ -23,9 +23,9 @@ export function HomeHero() {
   const slide = slides[idx]
 
   const stats = [
-    { label: 'Students', value: 5000, suffix: '+' },
-    { label: 'Teachers', value: 350, suffix: '+' },
-    { label: 'Campuses', value: 8, suffix: '' },
+    { label: 'Students', value: 6000, suffix: '+' },
+    { label: 'Teachers & Staff', value: 560, suffix: '+' },
+    { label: 'Campuses', value: 6, suffix: '' },
     { label: 'Years of Excellence', value: 20, suffix: '+' },
   ]
 
@@ -72,7 +72,7 @@ export function HomeHero() {
             className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#FFD500]/15 border border-[#FFD500]/30 text-[#FFE24D] text-xs font-semibold tracking-widest uppercase backdrop-blur-md w-fit"
           >
             <Sparkles className="h-3.5 w-3.5" />
-            Since 2005 • Addis Ababa, Ethiopia
+            Since 2005 • Addis Ababa • "Your Kids, Our Kids"
           </motion.span>
 
           <motion.h1

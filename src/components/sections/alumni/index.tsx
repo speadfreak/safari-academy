@@ -26,7 +26,7 @@ export function AlumniPage() {
   const { data } = useStore()
   const alumni = data?.alumni || []
   const stats = [
-    { label: 'Alumni worldwide', value: 3200, suffix: '+' },
+    { label: 'Alumni worldwide', value: 5000, suffix: '+' },
     { label: 'Countries', value: 24, suffix: '' },
     { label: 'Universities attended', value: 60, suffix: '+' },
   ]
@@ -57,7 +57,7 @@ export function AlumniPage() {
     <PageShell
       eyebrow="Alumni"
       title={<>Once a Safari student, <span className="text-gradient-yellow-green">always family.</span></>}
-      subtitle="3,200+ alumni across 24 countries — shaping Ethiopia and the world."
+      subtitle="Thousands of alumni shaping Ethiopia and the world — graduates of our Secondary & College Preparatory program placed in top universities."
       crumbs={[{ label: 'Alumni' }]}
     >
       {/* Stats */}
