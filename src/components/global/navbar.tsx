@@ -94,14 +94,19 @@ export function Navbar() {
           {/* Logo */}
           <button
             onClick={() => navigate('home')}
-            className="flex items-center gap-2 group"
+            className="flex items-center gap-2.5 group"
             aria-label="Safari Academy home"
           >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={isDark ? '/brand/logo-dark.svg' : '/brand/logo-light.svg'}
+              src="/brand/logo-sm.png"
               alt="Safari Academy"
-              className="h-9 md:h-11 w-auto transition-transform group-hover:scale-105"
+              className="h-10 md:h-12 w-auto rounded-full transition-transform group-hover:scale-105 shadow-md"
             />
+            <span className="font-display text-lg md:text-xl font-extrabold tracking-tight leading-none hidden sm:block">
+              <span className="text-primary">SAFARI</span>{' '}
+              <span className="text-foreground">ACADEMY</span>
+            </span>
           </button>
 
           {/* Desktop menu */}

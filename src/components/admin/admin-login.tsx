@@ -48,7 +48,7 @@ export function AdminLogin({ onSuccess, onClose }: { onSuccess: () => void; onCl
       >
         <div className="text-center mb-8">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/brand/logo-dark.svg" alt="Safari Academy" className="h-12 mx-auto" />
+          <img src="/brand/logo.png" alt="Safari Academy" className="h-16 w-16 mx-auto rounded-full shadow-lg" />
           <div className="mt-4 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FFD500]/15 border border-[#FFD500]/30 text-[#FFE24D] text-xs font-semibold uppercase tracking-widest">
             <ShieldCheck className="h-3.5 w-3.5" /> Admin Control Room
           </div>

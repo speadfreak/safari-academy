@@ -91,6 +91,8 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8 mb-14">
           {/* Brand */}
           <div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/brand/logo-sm.png" alt="Safari Academy" className="h-14 w-14 mb-4 rounded-full shadow-lg" />
             <h3 className="text-base font-bold mb-4 text-primary">Safari Academy</h3>
             <p className="text-sm text-foreground/70 mb-4 leading-relaxed">{settings.footerText}</p>
             <ul className="space-y-2 text-sm">

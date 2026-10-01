@@ -99,7 +99,7 @@ export function AdminShell({ onClose }: { onClose: () => void }) {
         <div className="p-4 flex items-center justify-between border-b border-white/10">
           <div className="flex items-center gap-2">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/brand/logo-dark.svg" alt="Safari Admin" className="h-8" />
+            <img src="/brand/logo-sm.png" alt="Safari Admin" className="h-9 w-9 rounded-full" />
           </div>
           <button onClick={() => setSidebarOpen(false)} className="md:hidden text-white/60 hover:text-white">
             <X className="h-5 w-5" />

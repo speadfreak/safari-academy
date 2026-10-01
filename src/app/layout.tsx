@@ -35,7 +35,11 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Joseph James" }],
   icons: {
-    icon: "/brand/favicon.svg",
+    icon: [
+      { url: "/brand/favicon-32.png", sizes: "32x32", type: "image/png" },
+      { url: "/brand/favicon.png", sizes: "64x64", type: "image/png" },
+    ],
+    apple: "/brand/apple-touch-icon.png",
   },
   openGraph: {
     title: "Safari Academy — Nurturing Young Minds Since 2005",

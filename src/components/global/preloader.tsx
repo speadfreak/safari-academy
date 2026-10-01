@@ -49,31 +49,18 @@ export function Preloader() {
 
         <div className="relative z-10 flex flex-col items-center px-6 text-center">
           <motion.div
-            initial={{ scale: 0.7, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.7, ease: 'easeOut' }}
+            initial={{ scale: 0.7, opacity: 0, rotate: -10 }}
+            animate={{ scale: 1, opacity: 1, rotate: 0 }}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
             className="mb-8"
           >
-            <svg width="92" height="92" viewBox="0 0 64 64" fill="none">
-              <motion.path
-                d="M9 46 L18 28 L24 38 L31 24 L41 46 Z"
-                fill="url(#pre-g)"
-                initial={{ pathLength: 0, opacity: 0 }}
-                animate={{ pathLength: 1, opacity: 1 }}
-                transition={{ duration: 1.4, ease: 'easeInOut' }}
-              />
-              <defs>
-                <linearGradient id="pre-g" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0" stopColor="#FFD500" />
-                  <stop offset="1" stopColor="#1FA64D" />
-                </linearGradient>
-              </defs>
-              <motion.circle cx="38" cy="24" r="5" fill="#FFD500"
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ delay: 1.2, type: 'spring', stiffness: 200 }}
-              />
-            </svg>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/brand/logo.png"
+              alt="Safari Academy"
+              className="h-28 w-28 md:h-36 md:w-36 rounded-full shadow-2xl"
+              style={{ filter: 'drop-shadow(0 0 30px rgba(255, 213, 0, 0.4))' }}
+            />
           </motion.div>
 
           <motion.h1
