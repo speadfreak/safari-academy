@@ -6,13 +6,33 @@ const db = new PrismaClient()
 const IMG = (seed: string, w = 1200, h = 800) =>
   `https://picsum.photos/seed/${seed}/${w}/${h}`
 
-async function main() {
+/**
+ * Seed the Safari Academy database.
+ *
+ * SAFETY: This function NEVER deletes existing data on a populated database.
+ * The destructive cleanup phase runs ONLY when the database is empty
+ * (i.e. there are zero users). If users already exist, the function logs a
+ * message and returns immediately without touching any data.
+ *
+ * This makes it safe to call from `scripts/vercel-setup.ts` on every Vercel
+ * build: it will seed a fresh database and no-op on an already-seeded one.
+ */
+export async function seedDatabase() {
   console.log('🌱 Seeding Safari Academy database...')
 
+  // ---------- SAFETY GUARD ----------
+  // If the DB already has users, it has already been seeded (or is in use).
+  // Skip everything — never delete existing data on a populated database.
+  const existingUsers = await db.user.count()
+  if (existingUsers > 0) {
+    console.log(`ℹ️  DB already has ${existingUsers} user(s). Skipping seed — existing data will not be touched.`)
+    return
+  }
+
   // ---------- IDEMPOTENT CLEANUP ----------
-  // Safe to run multiple times: clear seed content first (users + settings are upserted below).
-  // Order matters due to foreign keys.
-  console.log('🧹 Clearing existing seed data...')
+  // Only reached on an empty database (no users). Clear any orphan seed rows
+  // left over from a partial/interrupted previous run, then insert fresh.
+  console.log('🧹 DB is empty — running cleanup before seeding...')
   await db.eventRegistration.deleteMany()
   await db.event.deleteMany()
   await db.newsPost.deleteMany()
@@ -596,11 +616,5 @@ async function main() {
   console.log('✅ Seed complete!')
 }
 
-main()
-  .catch((e) => {
-    console.error(e)
-    process.exit(1)
-  })
-  .finally(async () => {
-    await db.$disconnect()
-  })
+// NOTE: This file only EXPORTS `seedDatabase` — it has no side effects on import.
+// The standalone runner lives in `prisma/seed-runner.ts` (used by `bun run db:seed`).
