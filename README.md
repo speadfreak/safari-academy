@@ -1,110 +1,64 @@
 # 🦁 Safari Academy — Cinematic School Website + Admin Dashboard
 
-A complete, production-ready, fully-dynamic, cinematic website and admin control room for **Safari Academy**, a multi-campus school in Addis Ababa, Ethiopia. Built with Next.js 16, TypeScript, Tailwind CSS 4, Prisma, Framer Motion, and shadcn/ui.
+A complete, production-ready, fully-dynamic, cinematic website and admin control room for **Safari Academy**, a multi-campus school in Addis Ababa, Ethiopia. Built with Next.js 16, TypeScript, Tailwind CSS 4, Prisma (PostgreSQL), Framer Motion, and shadcn/ui.
 
 > "Since 2005 • Nurturing Young Minds • Building Ethiopia's Future Leaders"
 
 ---
 
-## ✨ Features
+## ✨ Features at a Glance
 
 ### Public site (cinematic, immersive, fully CMS-driven)
-- **Cinematic preloader** with logo draw, progress counter, tagline typewriter, and clip-path curtain reveal.
-- **Custom cursor** with hover state (desktop only, disabled on touch & reduced-motion).
-- **Scroll progress bar** at the top of every page.
-- **Glass navbar** that hides on scroll-down, reveals on scroll-up, with mega-menu dropdowns.
-- **Sticky footer** with animated wordmark, marquee, newsletter, dynamic campus list, social links, and credit.
-- **Back-to-top** button with circular scroll-progress ring.
-- **Command palette (⌘K / Ctrl+K)** for instant search across pages, branches, news, events.
-- **Cookie consent** banner (editable text).
-- **Theme toggle** (light/dark) with `next-themes`, dark mode is the cinematic default.
-- **WhatsApp floating button** (admin-managed number).
+- Cinematic preloader, custom cursor, scroll-progress bar, glass navbar with mega-menu, sticky animated footer, back-to-top with progress ring, command palette (⌘K), cookie banner, WhatsApp floating button, dark/light theme toggle.
+- **All pages database-driven**: Home (hero slideshow, animated stats, bento, pinned learning path, campuses, news, events, testimonials, achievements, alumni, virtual-tour teaser), About, Admissions (spreadsheet-editable tuition), Academics, Campus & Facilities, Student Life (masonry + lightbox), News (list + detail with share), Events (list + detail with .ics + registration), Alumni, Virtual Tour (scroll-snapped chapters), Branches (list + detail), Contact (validated map + form), Privacy, Terms, FAQs, Policies, Student Support, Parent Portal, 404.
 
-### Public pages (all database-driven)
-1. **Home** — Hero slideshow with Ken Burns + parallax + firefly particles + animated stats bar; Welcome; Why-Choose bento; pinned Learning Path (KG → High); 8 campuses; Programs; Admissions CTA with countdown; News; Events; Testimonials; Achievements timeline; Alumni spotlight; Virtual-tour teaser; Final CTA. Every section is reorderable / toggleable from the admin.
-2. **About Us** — Story timeline, Mission/Vision/Values, Leadership cards, Partners strip.
-3. **Admissions** — 5-step process, requirements tabs (KG/Primary/Middle/High), important dates, **spreadsheet-editable tuition tables**, scholarships, online inquiry form (stored in DB + admin Inbox), FAQ.
-4. **Academics** — Overview, Programs tabs, Curriculum, Trips & Extracurricular, Facilities grid, Administrative & Support team filter.
-5. **Campus & Facilities** — Bento gallery, safety stats, branches CTA.
-6. **Student Life** — Filterable masonry gallery with lightbox.
-7. **News** list + **News detail** (`/news/:slug` rendered via SPA state) — cover, reading progress, rich body, tags, share buttons (copy/WhatsApp/Telegram/Facebook/X), prev/next, related.
-8. **Events** list + **Event detail** — upcoming/past toggle, countdown to next event, registration form, "Add to Calendar" (.ics), share, related.
-9. **Alumni** — Distinguished alumni cards, give-back/mentor stats, join-network form.
-10. **Virtual Tour** — Scroll-snapped chapters, one per campus, with embedded video tours.
-11. **Branches** list + **Branch detail** — 8 campuses, cover, stats, facilities, gallery, video tour, contact, map embed.
-12. **Contact** — Cards, **sandboxed map iframe** (admin-managed, validated against google.com / openstreetmap.org allow-list), validated contact form with honeypot, branches quick-contact.
-13. **Legal** — Privacy & Terms with sticky table of contents.
-14. **FAQs, Policies, Student Support, Parent Portal** support pages.
-15. **404** — Cinematic "Lost in the savannah".
-
-### Admin control room (`#admin` or open via mobile menu → "Admin Login")
-A separate full-screen admin app inside the same Next.js client, protected by JWT httpOnly cookies with role-based access (`SUPER_ADMIN`, `ADMIN`, `EDITOR`).
-
-Modules:
-1. **Dashboard** — Stat cards, 7-day inquiries trend (area chart), content overview (bar chart), recent messages & inquiries.
-2. **Hero Slides** — CRUD, reorder, image upload, CTAs, overlay strength.
-3. **Branches** — Full CRUD with cover image, facilities, video tour URL, map embed.
-4. **Team** — Leadership + Staff, photo upload, role/department, bios, socials.
-5. **News** — CRUD, HTML body, cover image upload, tags, status (draft/published/scheduled), featured.
-6. **Events** — CRUD, date/time, venue, registration toggle, featured.
-7. **Gallery** — CRUD with image upload, category, featured flag.
-8. **Tuition & Fees** — Spreadsheet-like editor: add/remove/reorder columns & rows, edit cells inline, highlight rows, publish toggle, PDF upload.
-9. **Alumni** — Profile CRUD with photo, sector, socials.
-10. **Testimonials** — CRUD with rating, avatar.
-11. **FAQs** — CRUD with category.
-12. **Inbox** — Contact messages, admission inquiries, alumni applications, subscribers, event registrations — search, status, CSV export.
-13. **Legal Pages** — Edit Privacy & Terms with HTML body and last-updated label.
-14. **Site Settings** — Branding, contact, footer, SEO, preloader, admissions, cookies, social — all in one form with live site refresh on save.
-15. **Users & Roles** (SUPER_ADMIN only) — Create/edit/delete users, assign roles, reset passwords, activate/deactivate (prevents self-deactivation & deleting the last super admin).
-16. **Audit Log** (SUPER_ADMIN only) — Filterable activity feed.
-17. **Profile** — Update name/email/password.
-
-### Tech & Architecture
-- **Next.js 16** App Router (single visible `/` route renders an SPA-like experience with virtual routing for sub-pages).
-- **TypeScript** strict mode.
-- **Prisma + SQLite** with a clean, normalized schema (~25 models).
-- **REST API** under `/api/v1` with consistent `{success, data, error, meta}` response shape.
-- **JWT auth** with httpOnly cookies, 7-day expiry.
-- **bcryptjs** password hashing.
-- **Zod** validation on every public endpoint.
-- **Framer Motion** for page transitions, micro-interactions, layout animations.
-- **TanStack Query** for server-state caching.
-- **Zustand** for client UI state (route, admin open, command palette, etc.).
-- **shadcn/ui** (New York style) + Lucide icons.
-- **Recharts** for admin charts.
-- **React Hook Form + Zod** for forms.
-- **sonner** for toast notifications.
-- **Image uploads** stored locally to `/public/uploads/`, validated by MIME type and size.
-- **Map URL validation**: only Google Maps / OpenStreetMap URLs allowed in iframe src.
-- **Audit logging** for every admin mutation.
-- **CSRF-safe** cookie-based auth (`SameSite=Lax`).
+### Admin control room (`/#admin`)
+- JWT httpOnly-cookie auth, RBAC (SUPER_ADMIN/ADMIN/EDITOR), audit log.
+- Dashboard (stat cards + Recharts), and full CRUD for: Hero Slides, Branches, Team, News, Events, Gallery, Tuition tables, Alumni, Testimonials, FAQs, Inbox (5 tabs + CSV export), Legal Pages, Site Settings, Users & Roles, Audit Log, Profile.
 
 ---
 
-## 🚀 Quick Start
+## 🚀 Quick Start (Local Dev)
 
 ### Prerequisites
-- **Node.js 20+** (or **Bun** — this repo uses Bun)
-- **npm / bun**
+- **Node.js 20+** (or **Bun** — recommended)
+- A **PostgreSQL** database (see below for a free Neon one)
 
-### Install
+### 1. Install
 ```bash
 bun install        # or: npm install
 ```
 
-### Set up environment
+### 2. Create a free Neon PostgreSQL database
+1. Go to **https://neon.tech** → Sign up (free, no credit card).
+2. Create a new project (e.g. "safari-academy").
+3. On the project dashboard, copy the **Connection string** — it looks like:
+   ```
+   postgresql://neondb_owner:password@ep-xxx-pooler.region.aws.neon.tech/neondb?sslmode=require
+   ```
+
+### 3. Configure environment
 ```bash
 cp .env.example .env
-# Edit .env to set JWT_SECRET to a long random string in production.
 ```
+Edit `.env` and set:
+- `DATABASE_URL` → your Neon connection string from step 2
+- `JWT_SECRET` → generate with `openssl rand -base64 48`
+- (optional) `BLOB_READ_WRITE_TOKEN` → only needed if you want image uploads to work locally; otherwise uploads fall back to `/public/uploads` on disk.
 
-### Database setup
+### 4. Create the database schema
 ```bash
-bun run db:push    # Create SQLite schema
-bunx tsx prisma/seed.ts   # Seed rich Ethiopian-context demo content
+bun run db:push
 ```
+This runs `prisma db push` — creates all tables in your Postgres DB.
 
-### Run in dev
+### 5. Seed the database with demo content
+```bash
+bun run db:seed
+```
+This runs `tsx prisma/seed.ts` — populates 8 campuses, leadership, news, events, gallery, alumni, testimonials, FAQs, legal pages, and the default admin user. The seed is **idempotent** (safe to run multiple times — it clears seed content first, then re-inserts).
+
+### 6. Run the dev server
 ```bash
 bun run dev        # or: npm run dev
 ```
@@ -112,189 +66,158 @@ Open **http://localhost:3000** in your browser.
 
 > 💡 In this sandboxed environment, view the app via the **Preview Panel** on the right. Use **Open in New Tab** for full-screen.
 
-### Default admin credentials
+---
+
+## 🔑 Default Admin Credentials
 ```
 Email:    admin@safariacademy.com
 Password: ChangeMe123!
 ```
-> ⚠️ **Change this immediately** in production via the admin Profile page.
-
-### Open the admin dashboard
-Visit `http://localhost:3000/#admin` — or click the mobile menu's "Admin Login" link.
+> ⚠️ **Change this immediately** in production via the admin Profile page (open `/#admin` → login → Profile).
 
 ---
 
-## 📂 Project Structure
+## 🌍 Environment Variables
+
+| Variable | Required | Description |
+|---|---|---|
+| `DATABASE_URL` | ✅ | PostgreSQL connection string (e.g. Neon). Format: `postgresql://user:pass@host:5432/db?sslmode=require` |
+| `JWT_SECRET` | ✅ | Long random string used to sign JWT session tokens. Generate with `openssl rand -base64 48`. Min 16 chars. |
+| `NODE_ENV` | — | `development` or `production`. Auto-set by Vercel. |
+| `BLOB_READ_WRITE_TOKEN` | ✅ for prod | Vercel Blob token for image uploads. If unset, uploads fall back to local disk (dev only). |
+| `NEXT_PUBLIC_SITE_URL` | — | Public site URL (for absolute links in emails/sitemap). |
+| `SMTP_HOST` | optional | Email server host (for form-submission notifications). |
+| `SMTP_PORT` | optional | Email server port (default 587). |
+| `SMTP_USER` | optional | Email server username. |
+| `SMTP_PASSWORD` | optional | Email server password. |
+| `SMTP_FROM` | optional | "From" address for outgoing emails. |
+
+> If SMTP vars are unset, form submissions are still stored in the database and visible in the admin Inbox — just no email notification is sent.
+
+---
+
+## ☁️ Deploy on Vercel
+
+### Step 1 — Push to GitHub
+This repo should already be on GitHub. If not, push it.
+
+### Step 2 — Import into Vercel
+1. Go to **https://vercel.com** → **Add New…** → **Project**.
+2. Import your `safari-academy` GitHub repo.
+3. Vercel auto-detects Next.js — keep the defaults:
+   - **Framework Preset**: Next.js
+   - **Build Command**: `bun run build` (or `npm run build`) — already runs `prisma generate && next build`
+   - **Install Command**: `bun install` (or `npm install`) — `postinstall` also runs `prisma generate`
+   - **Output Directory**: `.next` (auto)
+
+### Step 3 — Add Environment Variables
+In Vercel → Project → Settings → Environment Variables, add (for **Production**, **Preview**, and **Development**):
+- `DATABASE_URL` → your Neon connection string
+- `JWT_SECRET` → your generated secret
+- `BLOB_READ_WRITE_TOKEN` → create a Blob store (Vercel → Storage → Create → Blob) and paste the token here
+
+### Step 4 — Deploy
+Click **Deploy**. Vercel builds the app and deploys. The first build takes ~1 min.
+
+### Step 5 — Set up the production database (one-time, after first deploy)
+Because Vercel's build sandbox doesn't run your `db:push` or `db:seed`, run them **once** against your production Neon DB from your local machine:
+
+```bash
+# Make sure your local .env has the PRODUCTION DATABASE_URL from Neon
+bun run db:push     # creates tables in production
+bun run db:seed     # seeds demo content + default admin
+```
+
+> The seed is idempotent — safe to re-run. It will NOT delete users or settings, only seed content (branches, news, events, etc.).
+
+### Step 6 — Change the admin password
+1. Visit `https://your-vercel-domain.vercel.app/#admin`
+2. Login with `admin@safariacademy.com` / `ChangeMe123!`
+3. Go to **Profile** → set a new password → Save.
+
+### Step 7 — (Optional) Create a Vercel Blob store
+Image uploads (admin → upload buttons) need a Blob store:
+1. Vercel → your project → **Storage** → **Create** → **Blob**.
+2. Copy the **Blob Read Write Token**.
+3. Add it as `BLOB_READ_WRITE_TOKEN` env var (Production + Preview).
+4. Redeploy (push any commit, or click Redeploy).
+
+---
+
+## 📂 Project Structure (key files)
 
 ```
 .
 ├── prisma/
-│   ├── schema.prisma        # Full normalized schema (~25 models)
-│   └── seed.ts              # Rich demo seed
+│   ├── schema.prisma        # PostgreSQL schema (~25 models)
+│   └── seed.ts              # Idempotent seed (Ethiopian-context demo data)
 ├── public/
-│   ├── brand/               # Logo (light/dark), favicon (SVG)
-│   └── uploads/             # Admin-uploaded media
+│   ├── brand/               # Logo (light/dark SVG) + favicon
+│   └── uploads/.gitkeep    # Local-dev upload dir (gitignored contents)
 ├── src/
 │   ├── app/
-│   │   ├── layout.tsx       # Fonts (Plus Jakarta Sans + Sora), providers, metadata
+│   │   ├── layout.tsx       # Fonts (Plus Jakarta Sans + Sora), providers
 │   │   ├── page.tsx         # Renders <SafariApp />
-│   │   ├── globals.css      # Brand design system (yellow/green/lime, dark mode, animations)
-│   │   └── api/v1/
-│   │       ├── public/      # bootstrap, contact, newsletter, inquiry, event-register, alumni-apply
-│   │       └── admin/       # login, logout, me, me/profile, dashboard, settings,
-│   │                       # hero-slides, branches, team, news, events, gallery,
-│   │                       # alumni, testimonials, faqs, legal, fee-tables, inbox,
-│   │                       # users, audit-log, upload (each with [id] subroutes)
+│   │   ├── globals.css      # Brand design system
+│   │   └── api/v1/           # public + admin REST endpoints
 │   ├── components/
-│   │   ├── global/          # Preloader, Navbar, Footer, BackToTop, CustomCursor,
-│   │   │                    # ScrollProgress, CommandPalette, MagneticButton, CookieBanner
-│   │   ├── sections/        # Public pages: home/, about/, admissions/, academics/,
-│   │   │                    # student-life/, news/, events/, alumni/, virtual-tour/,
-│   │   │                    # branches/, contact/, legal/ + page-shell.tsx
-│   │   ├── admin/           # admin-overlay, admin-login, admin-shell,
-│   │   │                    # modules/{dashboard, crud-modules, settings-and-others}, ui.tsx
-│   │   ├── providers.tsx    # Theme + TanStack Query + TooltipProvider
-│   │   ├── safari-app.tsx   # SPA router + global chrome
-│   │   └── ui/              # shadcn/ui (pre-installed)
-│   └── lib/
-│       ├── db.ts            # Prisma client singleton
-│       ├── auth.ts          # bcrypt + JWT (jose)
-│       ├── session.ts       # getCurrentUser, requireRole
-│       ├── settings.ts      # Settings key/value helpers
-│       ├── api-response.ts  # apiSuccess / apiError helpers
-│       ├── crud.ts          # All admin CRUD handlers
-│       ├── hooks.ts         # useReveal, useCountUp
-│       ├── store.ts         # Zustand store (route, admin, command palette, data)
-│       ├── types.ts         # Shared TypeScript interfaces
-│       └── utils.ts        # cn, parseJSON, formatDate, daysUntil, slugify, sanitizeHTML, extractMapSrc
-├── .env.example
-├── Caddyfile                # Gateway config (port-multiplexing)
-└── package.json
+│   │   ├── global/          # Preloader, Navbar, Footer, Cursor, CommandPalette, …
+│   │   ├── sections/         # Public pages (home, about, admissions, …)
+│   │   ├── admin/            # Admin overlay + modules
+│   │   └── ui/               # shadcn/ui
+│   └── lib/                  # db, auth, session, settings, crud, upload, utils, store
+├── .env.example              # Template — commit this
+├── .gitignore                # Ignores .env, *.db, node_modules, /public/uploads/*, .next, .vercel
+├── next.config.ts            # standalone output, image remotePatterns
+├── package.json              # postinstall: prisma generate, build: prisma generate && next build
+└── README.md
 ```
-
----
-
-## 🔑 Replacing Brand Assets from the Admin
-
-1. **Logo & favicon** — Admin → Site Settings → Branding. Update `logoLight`, `logoDark`, `favicon` URLs. The favicon `<link rel="icon">` updates dynamically.
-2. **Map** — Admin → Site Settings → Contact & Map. Paste a Google Maps or OpenStreetMap iframe URL or `src` URL. The backend validates against an allow-list (`google.com/maps`, `maps.google.com`, `openstreetmap.org`) and strips anything else.
-3. **Hero slides** — Admin → Hero Slides → New Slide. Upload image or paste URL, set CTAs.
-4. **Branches & galleries** — Each module supports image upload via the upload button.
-5. **Site colors** — Site Settings → Branding (`primaryColor`, `secondaryColor`, `accentColor`). Update the CSS variables in `globals.css` to apply brand-wide.
-
----
-
-## 🌍 Deployment
-
-### Vercel + Neon (recommended for production)
-1. Push this repo to GitHub.
-2. Import into Vercel.
-3. Add env vars: `DATABASE_URL` (Neon Postgres URL — change `provider = "sqlite"` to `provider = "postgresql"` in `prisma/schema.prisma` first), `JWT_SECRET`.
-4. Run `bun run db:push` and `bunx tsx prisma/seed.ts` once.
-5. Deploy.
-
-### VPS (Docker — optional)
-A `Dockerfile` can be added (this repo runs Bun directly). For VPS:
-1. Install Node 20+ and Postgres (or keep SQLite for small deployments).
-2. `bun install`, `bun run db:push`, `bunx tsx prisma/seed.ts`.
-3. `bun run build && bun run start` (or use PM2 / systemd).
 
 ---
 
 ## 🛡 Security Notes
 
-- **Change `JWT_SECRET`** in `.env` to a long random string before production.
-- **Change the default admin password** immediately via Admin → Profile.
-- The map iframe is sandboxed and validated against an allow-list.
-- All admin mutations require a valid session cookie; SUPER_ADMIN-only endpoints check role.
-- Rich-text HTML is sanitized (script tags / event handlers stripped) before rendering.
-- Public form endpoints use Zod validation + honeypot field.
+- **`JWT_SECRET`** is read from env only. In production, a missing/short secret throws (no hardcoded fallback).
+- **Session cookies** are `httpOnly`, `sameSite=lax`, and `secure: true` when `NODE_ENV=production`.
+- **Map iframe** src is validated against an allow-list (`google.com/maps`, `maps.google.com`, `openstreetmap.org`) — other URLs are rejected to prevent XSS.
+- **Image uploads** validate MIME type and size (max 12MB). In production they go to Vercel Blob; locally to `/public/uploads`.
+- **Rich-text HTML** (news/events/legal bodies) is sanitized before render (script tags + event handlers stripped).
+- **Public forms** use Zod validation + a honeypot field.
+- **Admin RBAC**: SUPER_ADMIN-only endpoints (users, audit-log) check role; prevents self-deletion and deleting the last super admin.
 
 ---
 
-## ✅ Self-Review Checklist
+## 🧰 Common Commands
 
-### Public site
-- [x] Cinematic preloader (skippable, respects reduced-motion)
-- [x] Glass navbar with mega-menu + mobile animated menu
-- [x] Sticky footer (pushed down naturally, no floating gap)
-- [x] Back-to-top with progress ring (on all pages)
-- [x] Custom cursor (desktop only)
-- [x] Scroll progress bar
-- [x] Command palette (⌘K)
-- [x] Cookie consent
-- [x] Theme toggle (dark default, light supported)
-- [x] WhatsApp floating button
-- [x] Home: hero, welcome, why-choose, journey, campuses, programs, admissions CTA, news, events, testimonials, achievements, alumni, virtual-tour teaser, final CTA
-- [x] About: timeline, mission/vision/values, leadership, partners
-- [x] Admissions: steps, requirements, dates, tuition, scholarships, inquiry form
-- [x] Academics: overview, programs tabs, curriculum, facilities, team
-- [x] Campus & Facilities: bento gallery, safety
-- [x] Student Life: masonry gallery + lightbox
-- [x] News list + detail (with share buttons, related, prev/next)
-- [x] Events list + detail (with .ics, registration form)
-- [x] Alumni: cards, give-back, join form
-- [x] Virtual Tour: scroll-snapped chapters with video embeds
-- [x] Branches list + detail (gallery, map, contact)
-- [x] Contact: cards, validated map, validated form
-- [x] Privacy / Terms with TOC
-- [x] FAQs, Policies, Student Support, Parent Portal
-- [x] 404 page
-
-### Admin
-- [x] Login (httpOnly cookie, JWT)
-- [x] Dashboard with charts + recent activity
-- [x] Hero Slides CRUD
-- [x] Branches CRUD (with image upload)
-- [x] Team CRUD
-- [x] News CRUD (HTML body, cover image)
-- [x] Events CRUD (with registration toggle)
-- [x] Gallery CRUD (with image upload)
-- [x] Tuition spreadsheet editor
-- [x] Alumni CRUD
-- [x] Testimonials CRUD
-- [x] FAQs CRUD
-- [x] Inbox (5 tabs, search, CSV export)
-- [x] Legal pages editor
-- [x] Site Settings (grouped, all editable)
-- [x] Users & Roles (SUPER_ADMIN only, prevents self-delete / last-super-admin-delete)
-- [x] Audit log
-- [x] Profile (update name/email/password)
-- [x] Media upload (validated MIME + size)
-
-### Architecture
-- [x] Prisma schema with 25+ models, createdAt/updatedAt, slugs, indexes
-- [x] Rich seed data (Ethiopian context, 8 campuses, leadership, news, events, gallery, alumni, testimonials, achievements, partners, FAQs, legal)
-- [x] REST API with consistent response shape
-- [x] Zod validation on all public endpoints
-- [x] RBAC middleware on admin endpoints
-- [x] TypeScript strict
-- [x] shadcn/ui components
-- [x] Framer Motion animations
-- [x] TanStack Query + Zustand
-- [x] React Hook Form + Zod forms
-- [x] Recharts in admin
-- [x] sonner toasts
-- [x] Image upload with validation
-- [x] Map URL allow-list validation
-- [x] Audit logging
-- [x] No TypeScript errors blocking build (lint warnings only)
-- [x] Browser-verified: page renders, navigation works, admin login works, all API endpoints return 200
+| Command | Description |
+|---|---|
+| `bun install` | Install dependencies |
+| `bun run dev` | Start dev server on http://localhost:3000 |
+| `bun run build` | `prisma generate && next build` |
+| `bun run start` | Start production server (after build) |
+| `bun run lint` | Run ESLint |
+| `bun run db:push` | Push Prisma schema to DB (create/update tables) |
+| `bun run db:generate` | Regenerate Prisma Client (after schema changes) |
+| `bun run db:migrate` | Create + apply a Prisma migration (dev) |
+| `bun run db:reset` | Reset DB + re-run migrations (destructive!) |
+| `bun run db:seed` | Seed demo content (idempotent) |
 
 ---
 
-## 📝 Notes on Tech-Stack Adaptation
+## 📝 Tech Stack
 
-The original spec requested **React 18 + Vite + Express + PostgreSQL monorepo**. This implementation adapts that vision to the sandbox's locked stack:
-
-- **Next.js 16 + App Router** instead of Vite + React Router (single visible `/` route renders a virtual-router SPA — pages are switched in client state, preserving the multi-page UX).
-- **Prisma + SQLite** instead of PostgreSQL (the schema is portable — change `provider = "postgresql"` and the connection string to migrate).
-- **Next.js API routes** under `/api/v1` instead of a separate Express server.
-- **httpOnly cookie + JWT (jose)** instead of access + refresh tokens (single 7-day session for simplicity).
-- **No Lenis / GSAP** (used Framer Motion + CSS + IntersectionObserver to keep the bundle lean and avoid dev-server memory issues in the sandbox).
-- **No R3F / drei 3D** (used SVG + Framer Motion fireflies + parallax for the hero accent — performs better and respects reduced-motion).
-
-All other features (cinematic design system, animations, mega-menu, sticky footer, command palette, custom cursor, scroll progress, admin CRUD for every entity, RBAC, audit log, map validation, image uploads, form validation, CSV export, etc.) are fully implemented.
+- **Framework**: Next.js 16 (App Router, Turbopack)
+- **Language**: TypeScript 5 (strict)
+- **Styling**: Tailwind CSS 4 + shadcn/ui (New York) + Lucide icons
+- **Database**: PostgreSQL via Prisma ORM
+- **Auth**: JWT (jose) + bcryptjs, httpOnly cookies, RBAC
+- **State**: Zustand (client) + TanStack Query (server)
+- **Forms**: React Hook Form + Zod
+- **Animation**: Framer Motion
+- **Charts**: Recharts (admin)
+- **Toasts**: sonner
+- **Uploads**: @vercel/blob (prod) / local disk (dev fallback)
+- **Fonts**: Plus Jakarta Sans (body) + Sora (display) via next/font
 
 ---
 

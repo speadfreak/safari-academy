@@ -30,12 +30,29 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# env files (keep .env.example tracked, ignore all other env files)
+.env
+.env.local
+.env.*.local
+.env.production
+.env.development
+!.env.example
+
+# databases (SQLite local dev files — never commit)
+*.db
+*.sqlite
+*.sqlite3
+/db/*.db
+/db/*.sqlite
 
 # vercel
 .vercel
 
+# logs
+*.log
+dev.log
+dev.out.log
+server.log
 
 # typescript
 *.tsbuildinfo
@@ -43,12 +60,15 @@ next-env.d.ts
 local-*
 .claude
 .z-ai-config
-*.log
-dev.log
-dev.out.log
 test
 prompt
 
-server.log
-# Skills directory
+# user-uploaded files (Vercel Blob is used in production; local dev writes here)
+/public/uploads/*
+!/public/uploads/.gitkeep
+
+# skills directory
 /skills/
+
+# downloaded assets
+/download/

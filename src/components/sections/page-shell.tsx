@@ -10,7 +10,7 @@ interface Props {
   eyebrow?: string
   title: ReactNode
   subtitle?: string
-  image?: string
+  image?: string | null
   crumbs?: Crumb[]
   children: ReactNode
   dark?: boolean

@@ -113,11 +113,12 @@ const regSchema = z.object({
   name: z.string().min(2),
   email: z.string().email(),
   phone: z.string().optional(),
-  count: z.coerce.number().int().min(1).max(20).default(1),
+  count: z.union([z.number(), z.string()]).transform((v) => Number(v)).pipe(z.number().int().min(1).max(20)),
   note: z.string().optional(),
   website: z.string().max(0).optional(),
 })
-type RegForm = z.infer<typeof regSchema>
+type RegFormInput = z.input<typeof regSchema>
+type RegForm = z.output<typeof regSchema>
 
 export function EventDetailPage() {
   const { data, navigate, route } = useStore()
@@ -125,7 +126,7 @@ export function EventDetailPage() {
   const events = data?.events || []
   const ev = events.find((e) => e.slug === slug)
   const [submitting, setSubmitting] = useState(false)
-  const { register, handleSubmit, reset, formState: { errors } } = useForm<RegForm>({ resolver: zodResolver(regSchema), defaultValues: { count: 1 } })
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<RegFormInput>({ resolver: zodResolver(regSchema) as any, defaultValues: { count: 1 } })
 
   if (!ev) {
     return (
@@ -232,7 +233,7 @@ export function EventDetailPage() {
               <span className="text-xs font-semibold uppercase tracking-widest text-primary">Register</span>
               <h2 className="mt-2 font-display text-3xl md:text-4xl font-extrabold">Reserve your <span className="text-gradient-yellow-green">spot</span></h2>
             </div>
-            <form onSubmit={handleSubmit(onSubmit)} className="p-6 md:p-8 rounded-3xl bg-card border border-border/60 space-y-4">
+            <form onSubmit={handleSubmit(onSubmit as any)} className="p-6 md:p-8 rounded-3xl bg-card border border-border/60 space-y-4">
               <input type="text" {...register('website')} className="hidden" tabIndex={-1} autoComplete="off" />
               <div className="grid md:grid-cols-2 gap-4">
                 <label className="block">

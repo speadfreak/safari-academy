@@ -44,13 +44,14 @@ export function AdminCard({ children, className = '' }: { children: React.ReactN
   return <div className={`rounded-2xl bg-white/[0.03] border border-white/10 ${className}`}>{children}</div>
 }
 
-export function AdminButton({ children, onClick, variant = 'primary', size = 'md', type = 'button', disabled }: {
+export function AdminButton({ children, onClick, variant = 'primary', size = 'md', type = 'button', disabled, className = '' }: {
   children: React.ReactNode
   onClick?: () => void
   variant?: 'primary' | 'ghost' | 'danger' | 'outline'
   size?: 'sm' | 'md'
   type?: 'button' | 'submit'
   disabled?: boolean
+  className?: string
 }) {
   const variants = {
     primary: 'bg-[#FFD500] text-[#06130B] hover:bg-[#FFE24D]',
@@ -64,7 +65,7 @@ export function AdminButton({ children, onClick, variant = 'primary', size = 'md
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={`inline-flex items-center justify-center gap-1.5 rounded-full font-semibold transition disabled:opacity-50 ${variants[variant]} ${sizes[size]}`}
+      className={`inline-flex items-center justify-center gap-1.5 rounded-full font-semibold transition disabled:opacity-50 ${variants[variant]} ${sizes[size]} ${className}`}
     >
       {children}
     </button>

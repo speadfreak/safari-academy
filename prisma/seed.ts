@@ -9,6 +9,43 @@ const IMG = (seed: string, w = 1200, h = 800) =>
 async function main() {
   console.log('🌱 Seeding Safari Academy database...')
 
+  // ---------- IDEMPOTENT CLEANUP ----------
+  // Safe to run multiple times: clear seed content first (users + settings are upserted below).
+  // Order matters due to foreign keys.
+  console.log('🧹 Clearing existing seed data...')
+  await db.eventRegistration.deleteMany()
+  await db.event.deleteMany()
+  await db.newsPost.deleteMany()
+  await db.galleryItem.deleteMany()
+  await db.galleryCategory.deleteMany()
+  await db.alumniProfile.deleteMany()
+  await db.alumniApplication.deleteMany()
+  await db.testimonial.deleteMany()
+  await db.achievement.deleteMany()
+  await db.partner.deleteMany()
+  await db.faq.deleteMany()
+  await db.policyDocument.deleteMany()
+  await db.contactMessage.deleteMany()
+  await db.admissionInquiry.deleteMany()
+  await db.subscriber.deleteMany()
+  await db.mediaAsset.deleteMany()
+  await db.feeRow.deleteMany()
+  await db.feeColumn.deleteMany()
+  await db.feeTable.deleteMany()
+  await db.scholarship.deleteMany()
+  await db.importantDate.deleteMany()
+  await db.admissionRequirement.deleteMany()
+  await db.admissionStep.deleteMany()
+  await db.facilityItem.deleteMany()
+  await db.program.deleteMany()
+  await db.feature.deleteMany()
+  await db.timelineMilestone.deleteMany()
+  await db.teamMember.deleteMany()
+  await db.branchImage.deleteMany()
+  await db.branch.deleteMany()
+  await db.heroSlide.deleteMany()
+  // HomeSection + LegalPage + Setting + User are upserted below (kept).
+
   // ---------- USERS ----------
   const pw = await bcrypt.hash('ChangeMe123!', 10)
   await db.user.upsert({
@@ -553,8 +590,8 @@ async function main() {
   await db.contactMessage.create({ data: { name: 'Hanna Girma', email: 'hanna@example.com', phone: '+251912345678', subject: 'Campus Visit', campus: 'Umar Sibhatu', message: 'I would like to schedule a campus visit for my 6-year-old daughter next week.' } })
   await db.contactMessage.create({ data: { name: 'Yonas Bekele', email: 'yonas@example.com', phone: '+251923456789', subject: 'Scholarship inquiry', campus: 'Summit', message: 'Are scholarships available for Grade 9 students?' } })
   await db.admissionInquiry.create({ data: { parentName: 'Almaz Tadesse', email: 'almaz@example.com', phone: '+251934567890', studentName: 'Lily Tadesse', gradeLevel: 'KG', campus: 'Raey', message: 'Interested in enrolling my daughter for the next academic year.' } })
-  await db.subscriber.create({ data: { email: 'parent1@example.com' } })
-  await db.subscriber.create({ data: { email: 'parent2@example.com' } })
+  await db.subscriber.upsert({ where: { email: 'parent1@example.com' }, update: {}, create: { email: 'parent1@example.com' } })
+  await db.subscriber.upsert({ where: { email: 'parent2@example.com' }, update: {}, create: { email: 'parent2@example.com' } })
 
   console.log('✅ Seed complete!')
 }

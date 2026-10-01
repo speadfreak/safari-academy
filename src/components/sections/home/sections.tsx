@@ -572,7 +572,7 @@ export function VirtualTourTeaserSection() {
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={slide?.mediaUrl || slide?.coverImage || 'https://picsum.photos/seed/vtour/1600/900'}
+            src={(slide as any)?.mediaUrl || (slide as any)?.coverImage || 'https://picsum.photos/seed/vtour/1600/900'}
             alt="Virtual Tour"
             className="absolute inset-0 h-full w-full object-cover transition-transform duration-[3000ms] group-hover:scale-110"
           />
