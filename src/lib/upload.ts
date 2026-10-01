@@ -12,8 +12,12 @@ const MAX_SIZE = 12 * 1024 * 1024 // 12MB
 export interface UploadResult { url: string; filename: string; mime: string; size: number }
 
 /**
- * Upload a file to Vercel Blob if BLOB_READ_WRITE_TOKEN is set,
- * otherwise fall back to writing to /public/uploads (local dev only).
+ * Upload a file.
+ *
+ * - In PRODUCTION: uses Vercel Blob (requires BLOB_READ_WRITE_TOKEN env var).
+ *   Vercel's serverless filesystem is READ-ONLY, so local disk is NOT an option.
+ * - In DEVELOPMENT: falls back to writing to /public/uploads on local disk
+ *   when BLOB_READ_WRITE_TOKEN is not set.
  */
 export async function uploadFile(file: File): Promise<UploadResult> {
   if (!ALLOWED.includes(file.type)) {
@@ -25,8 +29,9 @@ export async function uploadFile(file: File): Promise<UploadResult> {
 
   const ext = path.extname(file.name) || `.${file.type.split('/')[1]}`
   const safeName = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}${ext}`
+  const isProduction = process.env.NODE_ENV === 'production'
 
-  // ---- Vercel Blob (production) ----
+  // ---- Vercel Blob (production + optional dev) ----
   if (process.env.BLOB_READ_WRITE_TOKEN) {
     const { put } = await import('@vercel/blob')
     const blob = await put(safeName, file, {
@@ -34,6 +39,16 @@ export async function uploadFile(file: File): Promise<UploadResult> {
       addRandomSuffix: false,
     })
     return { url: blob.url, filename: file.name, mime: file.type, size: file.size }
+  }
+
+  // ---- No Blob token ----
+  if (isProduction) {
+    // Vercel serverless filesystem is READ-ONLY — local disk is impossible.
+    // Return a clear, actionable error instead of crashing with ENOENT.
+    throw new Error(
+      'Image uploads require Vercel Blob. Go to Vercel → your project → Storage → Create a Blob store, ' +
+      'then add BLOB_READ_WRITE_TOKEN to your environment variables and redeploy.'
+    )
   }
 
   // ---- Local disk fallback (dev only) ----

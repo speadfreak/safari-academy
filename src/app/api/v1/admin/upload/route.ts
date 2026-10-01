@@ -23,6 +23,8 @@ export async function POST(req: NextRequest) {
     })
     return apiSuccess(asset, undefined, 201)
   } catch (e: any) {
+    // Return the actionable error message (e.g. "BLOB_READ_WRITE_TOKEN required")
+    // so the admin UI can display it to the user.
     return apiError(e?.message || 'Upload failed', 400)
   }
 }
