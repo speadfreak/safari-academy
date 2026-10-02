@@ -796,21 +796,43 @@ export function Modal({ children, onClose, title, wide }: { children: React.Reac
 
 export function ImageUpload({ onUploaded }: { onUploaded: (url: string) => void }) {
   const [uploading, setUploading] = useState(false)
+  const [errorMsg, setErrorMsg] = useState<string>('')
   const onFile = async (file: File) => {
     setUploading(true)
+    setErrorMsg('')
     const fd = new FormData()
     fd.append('file', file)
     try {
       const r = await fetch('/api/v1/admin/upload', { method: 'POST', body: fd })
+      // Handle non-OK responses — the server might return JSON error or HTML
+      if (!r.ok) {
+        let detail = `HTTP ${r.status}`
+        try {
+          const j = await r.json()
+          detail = j.error || j.message || detail
+        } catch {
+          // response wasn't JSON (likely HTML 404/500 page)
+          const text = await r.text().catch(() => '')
+          if (text.includes('404') || r.status === 404) detail = 'Upload endpoint not found (404). Please redeploy.'
+          else if (text) detail = text.substring(0, 200)
+        }
+        setErrorMsg(detail)
+        toast.error(detail)
+        return
+      }
       const j = await r.json()
-      if (j.success) {
+      if (j.success && j.data?.url) {
         toast.success('Image uploaded')
         onUploaded(j.data.url)
       } else {
-        toast.error(j.error || 'Upload failed')
+        const msg = j.error || 'Upload failed — unexpected response'
+        setErrorMsg(msg)
+        toast.error(msg)
       }
-    } catch {
-      toast.error('Upload failed')
+    } catch (e: any) {
+      const msg = e?.message || 'Network error — could not reach the server.'
+      setErrorMsg(msg)
+      toast.error(msg)
     } finally {
       setUploading(false)
     }
@@ -818,8 +840,13 @@ export function ImageUpload({ onUploaded }: { onUploaded: (url: string) => void 
   return (
     <label className="block">
       <div className="text-xs font-semibold text-white/70 mb-1.5">Or upload an image</div>
-      <input type="file" accept="image/*" disabled={uploading} onChange={(e) => e.target.files?.[0] && onFile(e.target.files[0])} className="block w-full text-xs text-white/70 file:mr-3 file:px-3 file:py-1.5 file:rounded-full file:border-0 file:bg-[#FFD500] file:text-[#06130B] file:font-semibold file:cursor-pointer" />
+      <input type="file" accept="image/*,video/mp4,application/pdf" disabled={uploading} onChange={(e) => e.target.files?.[0] && onFile(e.target.files[0])} className="block w-full text-xs text-white/70 file:mr-3 file:px-3 file:py-1.5 file:rounded-full file:border-0 file:bg-[#FFD500] file:text-[#06130B] file:font-semibold file:cursor-pointer disabled:opacity-50" />
       {uploading && <div className="text-xs text-white/50 mt-1">Uploading…</div>}
+      {errorMsg && (
+        <div className="mt-2 p-2 rounded-lg bg-red-500/10 border border-red-500/30 text-xs text-red-300">
+          {errorMsg}
+        </div>
+      )}
     </label>
   )
 }
