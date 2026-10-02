@@ -151,8 +151,8 @@ export async function seedDatabase() {
       order: 0,
     },
     {
-      title: 'Six Campuses. One Family.',
-      subtitle: '2 Kindergartens, 3 Primary Schools, and 1 Secondary & College Preparatory campus — serving nearly 6,000 students with 560+ dedicated teachers and staff across Addis Ababa.',
+      title: 'Eight Campuses. One Family.',
+      subtitle: '2 Kindergartens, 3 Primary Schools, and 1 Secondary & College Preparatory campus — serving nearly 6,000 students with 560+ dedicated teachers and staff across eight campuses in Addis Ababa.',
       mediaUrl: '/img/org/summit1.webp',
       ctaLabel: 'Explore Campuses',
       ctaLink: '#branches',
@@ -202,14 +202,16 @@ export async function seedDatabase() {
     })
   }
 
-  // ---------- BRANCHES (6 campuses: 2 KG + 3 Primary + 1 Secondary) ----------
+  // ---------- BRANCHES (8 campuses: 3 KG + 4 Primary + 1 Secondary) ----------
   const branches = [
-    { name: 'Umar Sibhatu', slug: 'umar-sibhatu', tagline: 'Flagship Campus • Secondary & College Preparatory', description: 'Our historic flagship — where the Safari story began in 2005. Now home to our Secondary & College Preparatory program, producing outstanding national examination results and university placements.', principal: 'Dr. Hanna Bekele', grades: 'Secondary & College Preparatory (Grades 9–12)', stats: JSON.stringify({ students: 1100, teachers: 95, founded: 2005 }), featured: true, coverImage: '/img/org/umar.webp' },
-    { name: 'Summit Primary', slug: 'summit', tagline: 'Primary Campus', description: 'A thriving primary campus known for innovative teaching methodologies, modern learning materials, and structured student assessment systems.', principal: 'Mr. Daniel Assefa', grades: 'Primary (Grades 1–8)', stats: JSON.stringify({ students: 1400, teachers: 120, founded: 2010 }), featured: true, coverImage: '/img/org/summit1.webp' },
+    { name: 'Umar Sibhatu', slug: 'umar-sibhatu', tagline: 'Flagship Campus • Secondary & College Preparatory', description: 'Our historic flagship — where the Safari story began in 2005. Home to our Secondary & College Preparatory program, producing outstanding national examination results and university placements.', principal: 'Ms. Woinshet Yohannis (Director)', grades: 'Secondary & College Preparatory (Grades 9–12)', stats: JSON.stringify({ students: 1100, teachers: 95, founded: 2005 }), featured: true, coverImage: '/img/org/umar.webp' },
+    { name: 'Summit Primary', slug: 'summit', tagline: 'Primary Campus', description: 'A thriving primary campus known for innovative teaching methodologies, modern learning materials, and structured student assessment systems.', principal: 'Mr. Yeshanbel Getnet (Director)', grades: 'Primary (Grades 1–8)', stats: JSON.stringify({ students: 1400, teachers: 120, founded: 2010 }), featured: true, coverImage: '/img/org/summit1.webp' },
     { name: 'Raey Kindergarten', slug: 'raey', tagline: 'Kindergarten Campus', description: 'A nurturing early-years haven where our youngest learners discover the joy of learning through play, music, and exploration.', principal: 'Ms. Marta Girma', grades: 'Kindergarten (KG 1–3)', stats: JSON.stringify({ students: 850, teachers: 65, founded: 2012 }), coverImage: '/img/org/raey.webp' },
     { name: 'Fird Bet Primary', slug: 'fird-bet', tagline: 'Primary Campus', description: 'A vibrant primary campus combining academic rigor with arts, music, and character education — where every child is known by name.', principal: 'Mr. Yonas Tesfaye', grades: 'Primary (Grades 1–8)', stats: JSON.stringify({ students: 1300, teachers: 110, founded: 2014 }), coverImage: '/img/saf/camp1.jpeg' },
     { name: 'Figa Kindergarten', slug: 'figa', tagline: 'Kindergarten Campus', description: 'Our second kindergarten campus — a safe, joyful, and stimulating environment built specially for our youngest learners\' first steps into education.', principal: 'Ms. Almaz Tesfaye', grades: 'Kindergarten (KG 1–3)', stats: JSON.stringify({ students: 650, teachers: 50, founded: 2016 }), coverImage: '/img/saf/camp2.jpeg' },
-    { name: 'Bole Primary', slug: 'bole', tagline: 'Primary Campus', description: 'Our newest primary campus, serving families across Bole and surrounding areas with the same Safari commitment to excellence, discipline, and moral values.', principal: 'Dr. Sara Kebede', grades: 'Primary (Grades 1–8)', stats: JSON.stringify({ students: 700, teachers: 60, founded: 2019 }), coverImage: '/img/saf/camp3.jpeg' },
+    { name: 'Bole Primary', slug: 'bole', tagline: 'Primary Campus', description: 'A primary campus serving families across Bole and surrounding areas with the same Safari commitment to excellence, discipline, and moral values.', principal: 'Dr. Sara Kebede', grades: 'Primary (Grades 1–8)', stats: JSON.stringify({ students: 700, teachers: 60, founded: 2018 }), coverImage: '/img/saf/camp3.jpeg' },
+    { name: 'CMC Primary', slug: 'cmc', tagline: 'Primary Campus', description: 'A modern primary campus with future-ready classrooms, immersive technology, and sustainable design — serving families across the CMC area.', principal: 'Mr. Nahom Solomon', grades: 'Primary (Grades 1–8)', stats: JSON.stringify({ students: 550, teachers: 48, founded: 2020 }), coverImage: '/img/saf/camp4.jpeg' },
+    { name: 'Gerji Kindergarten', slug: 'gerji', tagline: 'Kindergarten Campus', description: 'Our third kindergarten campus — a vibrant, community-driven environment fostering local engagement and global outlook for our youngest learners.', principal: 'Ms. Ruth Tadesse', grades: 'Kindergarten (KG 1–3)', stats: JSON.stringify({ students: 450, teachers: 35, founded: 2022 }), coverImage: '/img/org/kg.jpg' },
   ]
   // Branch gallery images — real photos mapped per campus
   const branchGallery: Record<string, string[]> = {
@@ -219,14 +221,29 @@ export async function seedDatabase() {
     'fird-bet': ['/img/saf/camp1.jpeg', '/img/org/1.webp', '/img/org/2.webp', '/img/org/3.webp'],
     'figa': ['/img/saf/camp2.jpeg', '/img/org/kg.jpg', '/img/org/kn.jpg', '/img/org/4.webp'],
     'bole': ['/img/saf/camp3.jpeg', '/img/saf/camp4.jpeg', '/img/org/5.webp', '/img/org/7.webp'],
+    'cmc': ['/img/saf/camp4.jpeg', '/img/org/9.webp', '/img/org/10.webp', '/img/org/13.webp'],
+    'gerji': ['/img/org/kg.jpg', '/img/org/kn.jpg', '/img/org/14.webp', '/img/org/15.webp'],
   }
+  // Compressed, streaming-optimized video tours (720p, H.264, faststart)
   const branchVideos: Record<string, string> = {
-    'umar-sibhatu': '/img/org/g.mp4',
-    'summit': '/img/org/summit.mp4',
-    'raey': '/img/org/raey.mp4',
-    'fird-bet': '/img/org/s.mp4',
-    'figa': '/img/org/h.mp4',
-    'bole': '/img/org/l.mp4',
+    'umar-sibhatu': '/video/g.mp4',
+    'summit': '/video/summit.mp4',
+    'raey': '/video/raey.mp4',
+    'fird-bet': '/video/s.mp4',
+    'figa': '/video/h.mp4',
+    'bole': '/video/l.mp4',
+    'cmc': '/video/summit1.mp4',
+    'gerji': '/video/raey.mp4',
+  }
+  const branchPosters: Record<string, string> = {
+    'umar-sibhatu': '/video/g-poster.jpg',
+    'summit': '/video/summit-poster.jpg',
+    'raey': '/video/raey-poster.jpg',
+    'fird-bet': '/video/s-poster.jpg',
+    'figa': '/video/h-poster.jpg',
+    'bole': '/video/l-poster.jpg',
+    'cmc': '/video/summit1-poster.jpg',
+    'gerji': '/video/raey-poster.jpg',
   }
   for (const [i, b] of branches.entries()) {
     const gallery = branchGallery[b.slug] || ['/img/org/1.webp']
@@ -240,8 +257,8 @@ export async function seedDatabase() {
         email: `${b.slug}@safariacademy.com`,
         facilities: JSON.stringify(['Science Labs', 'Library', 'Sports Field', 'ICT Center', 'Cafeteria', 'Clinic']),
         mapEmbedUrl: 'https://www.openstreetmap.org/export/embed.html?bbox=38.79%2C9.00%2C38.85%2C9.05&layer=mapnik',
-        videoTourUrl: branchVideos[b.slug] || '/img/org/summit.mp4',
-        videoPoster: b.coverImage,
+        videoTourUrl: branchVideos[b.slug] || '/video/summit.mp4',
+        videoPoster: branchPosters[b.slug] || '/video/summit-poster.jpg',
       },
     })
     // images per branch (real photos)
@@ -258,28 +275,29 @@ export async function seedDatabase() {
   }
 
   // ---------- TEAM ----------
-  // Leadership — real staff portraits from /img/org/stafimg/
+  // Leadership — real leadership hierarchy (top 4 first in every section)
   const leadership = [
-    { name: 'Mr. Joseph James', role: 'Founder & Director General', bio: 'Visionary educator who founded Safari Academy in 2005 with 8 staff and 107 students — and grew it into Ethiopia\'s preferred school.', photo: '/img/org/stafimg/CEO.jpg', featured: true, fullBio: 'Mr. Joseph James founded Safari Academy in 2005 with a clear mission: to provide quality education, strong discipline, and moral values. Starting with just 8 dedicated staff members and 107 students from Kindergarten to Grade 2, he nurtured the academy through two decades of growth into one of Ethiopia\'s most respected private educational institutions — now serving nearly 6,000 students with 560+ teachers and staff across six campuses. His guiding motto, "Your Kids, Our Kids," remains the heartbeat of every Safari classroom.' },
-    { name: 'Mr. Abiy', role: 'Executive Director', bio: 'Leads strategy and operations across all six campuses, ensuring the Safari standard of excellence.', photo: '/img/org/stafimg/Abiy.jpg', fullBio: 'Mr. Abiy oversees strategic direction, partnerships, and the academy\'s continued growth. He ensures that every campus — from Kindergarten to College Preparatory — upholds the motto "Your Kids, Our Kids" and the commitment to academic excellence, integrity, and innovation.' },
-    { name: 'Mr. Banteamlak', role: 'Director of Academics', bio: 'Champions academic excellence and innovative teaching methodologies across all primary campuses.', photo: '/img/org/stafimg/Banteamlak.jpg', fullBio: 'Mr. Banteamlak leads our academic programs, ensuring structured assessment systems, modern learning materials, and student-centered learning across every grade.' },
-    { name: 'Mr. Dagmawi', role: 'Head of Secondary & College Prep', bio: 'Leads our flagship secondary program with a focus on national exam excellence.', photo: '/img/org/stafimg/Dagmawi.jpg', fullBio: 'Mr. Dagmawi leads our Secondary & College Preparatory campus, producing outstanding results in national examinations and university entrance placements year after year.' },
-    { name: 'Mr. Dani', role: 'Director of Innovation & Technology', bio: 'Drives STEM, robotics, and digital learning initiatives across all campuses.', photo: '/img/org/stafimg/Dani.jpg', fullBio: 'Mr. Dani leads our innovation programs — from robotics labs to coding clubs — preparing Safari students for a technology-driven future.' },
-    { name: 'Ms. Marta', role: 'Principal, Raey Kindergarten', bio: 'Early childhood specialist nurturing our youngest learners\' first steps.', photo: '/img/org/stafimg/Marta.jpg', fullBio: 'Ms. Marta creates the joyful, safe, and stimulating environment where our youngest learners discover the love of learning — the foundation of every Safari student\'s journey.' },
+    { name: 'Mr. Eyob Ayele', role: 'Chief Executive Officer (CEO)', bio: 'Founder and CEO of Safari Academy. Since 2005, has grown the academy from 8 staff and 107 students into one of Ethiopia\'s most respected private schools.', photo: '/img/org/stafimg/CEO.jpg', featured: true, fullBio: 'Mr. Eyob Ayele founded Safari Academy in 2005 with a clear mission: to provide quality education, strong discipline, and moral values. Starting with just 8 dedicated staff members and 107 students from Kindergarten to Grade 2, he nurtured the academy through two decades of growth into one of Ethiopia\'s most respected private educational institutions — now serving nearly 6,000 students with 560+ teachers and staff across eight campuses. His guiding motto, "Your Kids, Our Kids," remains the heartbeat of every Safari classroom.' },
+    { name: 'Mr. Meskerem Belete', role: 'General Manager', bio: 'Leads overall operations and strategic direction across all eight campuses, ensuring the Safari standard of excellence.', photo: '/img/org/stafimg/Meskerem.jpg', featured: true, fullBio: 'Mr. Meskerem Belete oversees the academy\'s daily operations, strategic partnerships, and institutional growth. He ensures every campus — from Kindergarten to College Preparatory — upholds the motto "Your Kids, Our Kids" and the commitment to academic excellence, integrity, and innovation.' },
+    { name: 'Ms. Samrawit W/G', role: 'Vice General Manager', bio: 'Supports the General Manager in strategy and oversees academic quality across all programs.', photo: '/img/org/stafimg/samrawit2.jpg', featured: true, fullBio: 'Ms. Samrawit W/G serves as Vice General Manager, supporting strategic planning and overseeing academic quality assurance across all eight campuses. She works closely with principals and academic heads to maintain Safari\'s high standards.' },
+    { name: 'Ms. Woinshet Yohannis', role: 'Director, Umar Sibhatu Campus', bio: 'Director of the flagship Umar Sibhatu campus (Secondary & College Preparatory).', photo: '/img/org/stafimg/Woinshet.jpg', fullBio: 'Ms. Woinshet Yohannis serves as Director of the Umar Sibhatu campus — our historic flagship and home to the Secondary & College Preparatory program. She leads the campus with a focus on academic excellence, student discipline, and outstanding national examination results.' },
+    { name: 'Mr. Yeshanbel Getnet', role: 'Director, Summit Campus', bio: 'Director of the Summit Primary campus, known for innovative teaching methodologies.', photo: '/img/org/stafimg/Yeshanbel.jpg', fullBio: 'Mr. Yeshanbel Getnet leads the Summit Primary campus, championing improved teaching methodologies, modern learning materials, and structured student assessment systems.' },
+    { name: 'Mr. Banteamlak Daniel', role: 'Student Dean', bio: 'Student Dean overseeing student affairs, discipline, and character development.', photo: '/img/org/stafimg/Banteamlak.jpg', fullBio: 'Mr. Banteamlak Daniel serves as Student Dean, guiding student affairs, discipline, and character development across campuses — ensuring every learner grows in both mind and heart.' },
+    { name: 'Mr. Dagmawi Tamirat', role: 'Student Dean', bio: 'Student Dean focused on student wellbeing and academic support.', photo: '/img/org/stafimg/Dagmawi.jpg', fullBio: 'Mr. Dagmawi Tamirat serves as Student Dean, supporting student wellbeing, academic guidance, and the moral formation of every Safari learner.' },
+    { name: 'Mr. Tamirat', role: 'Student Dean', bio: 'Student Dean overseeing student activities and discipline.', photo: '/img/org/stafimg/Tamirat.jpg', fullBio: 'Mr. Tamirat serves as Student Dean, overseeing student activities, discipline, and the vibrant campus life that makes Safari special.' },
   ]
   for (const [i, t] of leadership.entries()) {
     await db.teamMember.create({ data: { ...t, type: 'LEADERSHIP', order: i, visible: true, quote: 'Education is the most powerful weapon you can use to change the world.' } })
   }
   // Staff — real administrative & support team portraits from /img/org/stafimg/
   const staff = [
-    { name: 'Mr. Dan', role: 'Head of Administration', department: 'Administration', photo: '/img/org/stafimg/Dan.jpg' },
-    { name: 'Mr. Lisan', role: 'Student Affairs Coordinator', department: 'Student Affairs', photo: '/img/org/stafimg/Lisan.jpg' },
-    { name: 'Ms. Woinshet', role: 'Finance Manager', department: 'Finance', photo: '/img/org/stafimg/Woinshet.jpg' },
-    { name: 'Mr. Yeshanbel', role: 'IT & Systems Lead', department: 'IT', photo: '/img/org/stafimg/Yeshanbel.jpg' },
+    { name: 'Mr. Dan', role: 'Student Dean', department: 'Student Affairs', photo: '/img/org/stafimg/Dan.jpg' },
+    { name: 'Mr. Dani', role: 'Student Dean', department: 'Student Affairs', photo: '/img/org/stafimg/Dani.jpg' },
+    { name: 'Mr. Lisan', role: 'Head of Administration', department: 'Administration', photo: '/img/org/stafimg/Lisan.jpg' },
     { name: 'Ms. Helen', role: 'Head Librarian', department: 'Library', photo: '/img/org/stafimg/Helen.jpg' },
-    { name: 'Mr. Tamirat', role: 'School Physician', department: 'Health', photo: '/img/org/stafimg/Tamirat.jpg' },
-    { name: 'Mr. Meskerem', role: 'Facilities & Security Lead', department: 'Security & Facilities', photo: '/img/org/stafimg/Meskerem.jpg' },
     { name: 'Ms. Kidist Sintayew', role: 'Admissions Officer', department: 'Administration', photo: '/img/org/stafimg/kidist sintayew.jpg' },
+    { name: 'Ms. Marta', role: 'Principal, Raey Kindergarten', department: 'Kindergarten', photo: '/img/org/stafimg/Marta.jpg' },
+    { name: 'Mr. Abiy', role: 'Academic Coordinator', department: 'Academics', photo: '/img/org/stafimg/Abiy.jpg' },
   ]
   for (const [i, s] of staff.entries()) {
     await db.teamMember.create({ data: { ...s, type: 'STAFF', order: i, visible: true } })

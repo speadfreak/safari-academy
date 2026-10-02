@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import { MapPin, Phone, Mail, Users, ArrowRight, Play, ChevronLeft } from 'lucide-react'
 import { useStore } from '@/lib/store'
 import { PageShell } from '../page-shell'
+import { LazyVideo } from '@/components/global/lazy-video'
 
 export function BranchesListPage() {
   const { data, navigate } = useStore()
@@ -15,8 +16,8 @@ export function BranchesListPage() {
   return (
     <PageShell
       eyebrow="Our Campuses"
-      title={<>Six campuses across <span className="text-gradient-yellow-green">Addis Ababa</span>.</>}
-      subtitle="2 Kindergartens, 3 Primary Schools, and 1 Secondary & College Preparatory campus — find the Safari campus near you."
+      title={<>Eight campuses across <span className="text-gradient-yellow-green">Addis Ababa</span>.</>}
+      subtitle="3 Kindergartens, 4 Primary Schools, and 1 Secondary & College Preparatory campus — find the Safari campus near you."
       crumbs={[{ label: 'Branches' }]}
     >
       <section className="py-20 md:py-28">
@@ -152,13 +153,11 @@ export function BranchDetailPage() {
               <div>
                 <h3 className="font-display text-lg font-bold mb-3">Video Tour</h3>
                 <div className="relative aspect-video rounded-2xl overflow-hidden bg-black/40">
-                  <iframe
-                    src={`${b.videoTourUrl}?modestbranding=1&rel=0`}
-                    title={`${b.name} video tour`}
-                    allow="autoplay; encrypted-media; picture-in-picture"
-                    allowFullScreen
-                    loading="lazy"
+                  <LazyVideo
+                    src={b.videoTourUrl}
+                    poster={b.videoPoster || b.coverImage || undefined}
                     className="absolute inset-0 h-full w-full"
+                    title={`${b.name} Campus Tour`}
                   />
                 </div>
               </div>

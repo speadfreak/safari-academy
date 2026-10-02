@@ -25,7 +25,7 @@ export function HomeHero() {
   const stats = [
     { label: 'Students', value: 6000, suffix: '+' },
     { label: 'Teachers & Staff', value: 560, suffix: '+' },
-    { label: 'Campuses', value: 6, suffix: '' },
+    { label: 'Campuses', value: 8, suffix: '' },
     { label: 'Years of Excellence', value: 20, suffix: '+' },
   ]
 

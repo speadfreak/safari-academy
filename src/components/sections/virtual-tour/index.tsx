@@ -1,54 +1,42 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Play, Pause, Volume2, VolumeX, Maximize2, ChevronDown } from 'lucide-react'
+import { ArrowRight, Play } from 'lucide-react'
 import { useStore } from '@/lib/store'
 import { PageShell } from '../page-shell'
+import { LazyVideo } from '@/components/global/lazy-video'
+import { MagneticButton } from '@/components/global/magnetic-button'
 
 export function VirtualTourPage() {
   const { data, navigate } = useStore()
   const branches = data?.branches || []
   const [active, setActive] = useState(0)
-  const [muted, setMuted] = useState(true)
-  const [playing, setPlaying] = useState(false)
   const branch = branches[active]
-  const iframeRef = useRef<HTMLIFrameElement>(null)
-  const chapterRef = useRef<HTMLDivElement>(null)
-
-  // Auto-advance on a "Play full tour" mode could be added later.
 
   return (
     <PageShell
       eyebrow="Virtual Tour"
       title={<>Walk every <span className="text-gradient-yellow-green">campus</span> — from anywhere.</>}
-      subtitle="An immersive journey through all eight Safari Academy campuses."
+      subtitle="An immersive journey through all eight Safari Academy campuses. Click any video to begin your tour."
       dark
       crumbs={[{ label: 'Virtual Tour' }]}
     >
-      {/* Hero video */}
+      {/* Hero video — first campus */}
       <section className="relative h-[60vh] min-h-[420px] overflow-hidden">
-        {branch?.videoTourUrl ? (
-          <iframe
-            ref={iframeRef}
-            src={`${branch.videoTourUrl}?mute=1&modestbranding=1&rel=0`}
-            title={`${branch.name} tour`}
-            allow="autoplay; encrypted-media; picture-in-picture"
-            allowFullScreen
-            loading="lazy"
+        {branch?.videoTourUrl && (
+          <LazyVideo
+            src={branch.videoTourUrl}
+            poster={branch.videoPoster || branch.coverImage || undefined}
             className="absolute inset-0 h-full w-full"
+            title={branch.name}
           />
-        ) : (
-          branch?.coverImage && (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={branch.coverImage} alt={branch.name} className="absolute inset-0 h-full w-full object-cover" />
-          )
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-[#06130B] via-transparent to-transparent pointer-events-none" />
       </section>
 
       {/* Campus chapters */}
-      <section ref={chapterRef} className="snap-chapter">
+      <section className="snap-chapter">
         {branches.map((b, i) => (
           <div key={b.id} id={`chapter-${b.slug}`} className="min-h-screen flex flex-col md:flex-row items-center gap-8 md:gap-16 px-5 md:px-12 py-16 md:py-24 border-b border-white/10">
             <div className="w-full md:w-1/2">
@@ -64,19 +52,17 @@ export function VirtualTourPage() {
                 </div>
               )}
               <button onClick={() => navigate('branch-detail', b.slug)} className="mt-6 inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#FFD500] text-[#06130B] font-bold text-sm hover:bg-[#FFE24D] transition">
-                View branch details →
+                View branch details <ArrowRight className="h-4 w-4" />
               </button>
             </div>
             <div className="w-full md:w-1/2">
               {b.videoTourUrl ? (
                 <div className="relative aspect-video rounded-2xl overflow-hidden bg-black/40">
-                  <iframe
-                    src={`${b.videoTourUrl}?mute=${muted ? 1 : 0}&modestbranding=1&rel=0`}
-                    title={`${b.name} tour`}
-                    allow="autoplay; encrypted-media; picture-in-picture"
-                    allowFullScreen
-                    loading="lazy"
+                  <LazyVideo
+                    src={b.videoTourUrl}
+                    poster={b.videoPoster || b.coverImage || undefined}
                     className="absolute inset-0 h-full w-full"
+                    title={b.name}
                   />
                 </div>
               ) : (

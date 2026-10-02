@@ -22,7 +22,7 @@ export function AboutPage() {
     <PageShell
       eyebrow="About Us"
       title={<>Educating Minds, <span className="text-gradient-yellow-green">Inspiring Hearts</span></>}
-      subtitle="Founded in Addis Ababa in 2005 with the motto “Your Kids, Our Kids” — from 8 staff and 107 students to 6,000+ learners across six campuses."
+      subtitle="Founded in Addis Ababa in 2005 with the motto “Your Kids, Our Kids” — from 8 staff and 107 students to 6,000+ learners across eight campuses."
       image={data?.branches?.[0]?.coverImage}
       crumbs={[{ label: 'About' }]}
     >
@@ -94,7 +94,7 @@ export function AboutPage() {
                 Safari Academy was established in Addis Ababa, Ethiopia in 2005 G.C with the guiding motto <strong>“Your Kids, Our Kids.”</strong> The academy began its journey with only <strong>8 dedicated staff members</strong> and <strong>107 students</strong> enrolled from Kindergarten to Grade 2.
               </p>
               <p>
-                Through strong leadership, committed teachers, and continuous support from parents, Safari Academy has grown into one of Ethiopia's most respected private educational institutions. Today, the academy operates <strong>2 Kindergarten campuses, 3 Primary Schools, and 1 Secondary &amp; College Preparatory campus</strong>, serving nearly <strong>6,000 students</strong> with the support of more than <strong>560 teachers and administrative staff</strong>.
+                Through strong leadership, committed teachers, and continuous support from parents, Safari Academy has grown into one of Ethiopia's most respected private educational institutions. Today, the academy operates <strong>3 Kindergarten campuses, 4 Primary Schools, and 1 Secondary &amp; College Preparatory campus</strong>, serving nearly <strong>6,000 students</strong> with the support of more than <strong>560 teachers and administrative staff</strong>.
               </p>
               <p>
                 Founded with a clear mission to provide quality education, strong discipline, and moral values, the school has always emphasized academic excellence, ethical behavior, and student-centered learning — producing outstanding results in national examinations and university entrance placements.
@@ -125,7 +125,7 @@ export function AboutPage() {
             <GrowthCounter label="Students (2005)" value={107} suffix="" start={growthVisible} />
             <GrowthCounter label="Students (Today)" value={6000} suffix="+" start={growthVisible} />
             <GrowthCounter label="Staff & Teachers" value={560} suffix="+" start={growthVisible} />
-            <GrowthCounter label="Campuses" value={6} suffix="" start={growthVisible} />
+            <GrowthCounter label="Campuses" value={8} suffix="" start={growthVisible} />
           </div>
           <div className="mt-8 text-center">
             <TrendingUp className="h-6 w-6 text-[#0B5D2A] mx-auto mb-2" />
@@ -254,12 +254,12 @@ export function AboutPage() {
         <div className="container-cinematic relative">
           <div className="text-center max-w-2xl mx-auto mb-12">
             <span className="text-[#FFE24D] text-xs font-semibold uppercase tracking-widest">Our Campuses</span>
-            <h2 className="mt-2 font-display text-3xl md:text-5xl font-extrabold">Six campuses, <span className="text-gradient-yellow-lime">one family</span></h2>
+            <h2 className="mt-2 font-display text-3xl md:text-5xl font-extrabold">Eight campuses, <span className="text-gradient-yellow-lime">one family</span></h2>
             <p className="mt-4 text-white/70">Each campus is purpose-built for its age group — yet all share the same Safari heart.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-4xl mx-auto">
-            <CampusCard number="2" label="Kindergarten Campuses" desc="Raey & Figa — purpose-built early-years environments" icon="Heart" />
-            <CampusCard number="3" label="Primary Campuses" desc="Summit, Fird Bet & Bole — Grades 1–8" icon="Building2" featured />
+            <CampusCard number="3" label="Kindergarten Campuses" desc="Raey, Figa & Gerji — purpose-built early-years environments" icon="Heart" />
+            <CampusCard number="4" label="Primary Campuses" desc="Summit, Fird Bet, Bole & CMC — Grades 1–8" icon="Building2" featured />
             <CampusCard number="1" label="Secondary Campus" desc="Umar Sibhatu — College Preparatory, Grades 9–12" icon="GraduationCap" />
           </div>
         </div>

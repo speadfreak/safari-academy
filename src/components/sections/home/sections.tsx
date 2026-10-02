@@ -58,7 +58,7 @@ export function WelcomeSection() {
             A school where <span className="text-gradient-yellow-green">curiosity</span> becomes <span className="text-gradient-yellow-green">character</span>.
           </h2>
           <p className="mt-6 text-base md:text-lg text-foreground/75 leading-relaxed">
-            For two decades, Safari Academy has nurtured young minds across Addis Ababa. What began in 2005 with 8 staff and 107 students has grown into 6 campuses serving nearly 6,000 learners. Our motto — “Your Kids, Our Kids” — is the heartbeat of everything we do.
+            For two decades, Safari Academy has nurtured young minds across Addis Ababa. What began in 2005 with 8 staff and 107 students has grown into 8 campuses serving nearly 6,000 learners. Our motto — “Your Kids, Our Kids” — is the heartbeat of everything we do.
           </p>
           <blockquote className="mt-8 pl-5 border-l-4 border-primary italic text-foreground/80">
             “{director?.quote || 'Your Kids, Our Kids.'}”
@@ -204,7 +204,7 @@ export function CampusesSection() {
       <div className="container-cinematic">
         <SectionHeading
           eyebrow="Our Campuses"
-          title={<>Six campuses. <span className="text-gradient-yellow-green">One family.</span></>}
+          title={<>Eight campuses. <span className="text-gradient-yellow-green">One family.</span></>}
           subtitle="Each Safari campus has its own character, yet shares the same heartbeat of curiosity and care."
         />
         <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
