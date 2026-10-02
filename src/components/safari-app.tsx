@@ -106,50 +106,60 @@ export function SafariApp() {
     return () => window.removeEventListener('hashchange', check)
   }, [])
 
+  // The Preloader renders on every state (loading, error, ready) so it never
+  // unmounts/remounts during transitions — eliminating the glitch.
+  // It manages its own visibility via the preloaderDone store flag.
+
   // Loading + error screens (before the main app is ready).
   if (!data) {
     if (state === 'error') {
       return (
-        <div className="min-h-screen grid place-items-center bg-[#06130B] text-white px-6">
-          <div className="max-w-md w-full text-center">
-            <div className="mx-auto mb-6 grid place-items-center h-16 w-16 rounded-full bg-[#FFD500]/15 text-[#FFD500]">
-              <AlertTriangle className="h-8 w-8" />
-            </div>
-            <h1 className="font-display text-2xl md:text-3xl font-bold mb-3">Couldn&apos;t load Safari Academy</h1>
-            <p className="text-sm text-white/70 mb-2">
-              The site data couldn&apos;t be loaded from the server.
-            </p>
-            {errorMsg && (
-              <p className="text-xs text-white/50 mb-6 font-mono break-words bg-white/5 rounded-lg p-3 border border-white/10">
-                {errorMsg}
+        <>
+          <Preloader />
+          <div className="min-h-screen grid place-items-center bg-[#06130B] text-white px-6">
+            <div className="max-w-md w-full text-center">
+              <div className="mx-auto mb-6 grid place-items-center h-16 w-16 rounded-full bg-[#FFD500]/15 text-[#FFD500]">
+                <AlertTriangle className="h-8 w-8" />
+              </div>
+              <h1 className="font-display text-2xl md:text-3xl font-bold mb-3">Couldn&apos;t load Safari Academy</h1>
+              <p className="text-sm text-white/70 mb-2">
+                The site data couldn&apos;t be loaded from the server.
               </p>
-            )}
-            {!errorMsg && <div className="mb-6" />}
-            <div className="text-xs text-white/50 mb-6 space-y-1">
-              <p>If this is a fresh deploy, please check:</p>
-              <p>• <code className="text-[#FFE24D]">DATABASE_URL</code> and <code className="text-[#FFE24D]">DIRECT_URL</code> are set in Vercel env vars</p>
-              <p>• The database has been created (<code className="text-[#FFE24D]">prisma db push</code> ran during build)</p>
-              <p>• The database has been seeded (empty DB → no content to load)</p>
+              {errorMsg && (
+                <p className="text-xs text-white/50 mb-6 font-mono break-words bg-white/5 rounded-lg p-3 border border-white/10">
+                  {errorMsg}
+                </p>
+              )}
+              {!errorMsg && <div className="mb-6" />}
+              <div className="text-xs text-white/50 mb-6 space-y-1">
+                <p>If this is a fresh deploy, please check:</p>
+                <p>• <code className="text-[#FFE24D]">DATABASE_URL</code> and <code className="text-[#FFE24D]">DIRECT_URL</code> are set in Vercel env vars</p>
+                <p>• The database has been created (<code className="text-[#FFE24D]">prisma db push</code> ran during build)</p>
+                <p>• The database has been seeded (empty DB → no content to load)</p>
+              </div>
+              <button
+                onClick={() => { setState('loading'); setRetryCount((c) => c + 1) }}
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#FFD500] text-[#06130B] font-bold text-sm hover:bg-[#FFE24D] transition"
+              >
+                <RefreshCw className="h-4 w-4" /> Try again
+              </button>
             </div>
-            <button
-              onClick={() => { setState('loading'); setRetryCount((c) => c + 1) }}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#FFD500] text-[#06130B] font-bold text-sm hover:bg-[#FFE24D] transition"
-            >
-              <RefreshCw className="h-4 w-4" /> Try again
-            </button>
           </div>
-        </div>
+        </>
       )
     }
-    // loading
+    // loading — Preloader shows on top; the skeleton is behind it.
     return (
-      <div className="min-h-screen grid place-items-center bg-background">
-        <div className="animate-pulse flex flex-col items-center gap-4">
-          <div className="h-2 w-32 rounded-full bg-primary/40" />
-          <div className="h-2 w-48 rounded-full bg-foreground/10" />
-          <div className="text-xs text-foreground/50">Loading Safari Academy…</div>
+      <>
+        <Preloader />
+        <div className="min-h-screen grid place-items-center bg-background">
+          <div className="animate-pulse flex flex-col items-center gap-4">
+            <div className="h-2 w-32 rounded-full bg-primary/40" />
+            <div className="h-2 w-48 rounded-full bg-foreground/10" />
+            <div className="text-xs text-foreground/50">Loading Safari Academy…</div>
+          </div>
         </div>
-      </div>
+      </>
     )
   }
 
@@ -183,33 +193,35 @@ export function SafariApp() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col">
-      <CustomCursor />
-      <ScrollProgress />
+    <>
       <Preloader />
-      <CommandPalette />
+      <div className="flex min-h-screen flex-col">
+        <CustomCursor />
+        <ScrollProgress />
+        <CommandPalette />
 
-      {!isNotFound && <Navbar />}
+        {!isNotFound && <Navbar />}
 
-      <main className="flex-1">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={route.route + (route.param || '')}
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-          >
-            {renderRoute()}
-          </motion.div>
-        </AnimatePresence>
-      </main>
+        <main className="flex-1">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={route.route + (route.param || '')}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            >
+              {renderRoute()}
+            </motion.div>
+          </AnimatePresence>
+        </main>
 
-      {!isNotFound && <Footer />}
-      {!isNotFound && <BackToTop />}
-      <CookieBanner />
-      <AdminOverlay />
-    </div>
+        {!isNotFound && <Footer />}
+        {!isNotFound && <BackToTop />}
+        <CookieBanner />
+        <AdminOverlay />
+      </div>
+    </>
   )
 }
 
