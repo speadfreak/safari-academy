@@ -5,19 +5,17 @@ import { useEffect, useState, useRef } from 'react'
 import { useStore } from '@/lib/store'
 
 /**
- * Cinematic Preloader — perfect, smooth, glitch-free.
+ * Cinematic Preloader — smooth, reliable, glitch-free.
  *
  * FLOW:
  * 1. Shows immediately on first paint (before data fetch completes).
- * 2. Progress bar animates 0→100 over ~2.5s, tied to real elapsed time.
- * 3. When progress reaches 100 AND app data is ready → exits with a
- *    smooth curtain-reveal (clip-path) that exposes the site underneath.
- * 4. If user clicks "Skip" → jumps to 100% and exits immediately.
- * 5. Respects prefers-reduced-motion (instant exit, no animation).
- * 6. Only shows once per session (preloaderDone flag in the store).
- *
- * The exit animation uses clip-path (GPU-accelerated, no layout shift)
- * and a staggered fade on inner elements for a premium feel.
+ * 2. Progress bar animates 0→100 over ~2.5s (easeOutCubic).
+ * 3. When progress hits 100% (regardless of data) → auto-exits.
+ * 4. If data arrives before progress completes → jumps to 100% and exits.
+ * 5. Skip button → jumps to 100% and exits immediately.
+ * 6. Exit: the entire overlay slides up (y: -100%) revealing the site.
+ * 7. Respects prefers-reduced-motion (instant exit).
+ * 8. Only shows once per session.
  */
 export function Preloader() {
   const setPreloaderDone = useStore((s) => s.setPreloaderDone)
@@ -28,115 +26,111 @@ export function Preloader() {
 
   const [progress, setProgress] = useState(0)
   const [exiting, setExiting] = useState(false)
-  const doneRef = useRef(false)
+  const rafRef = useRef(0)
+  const finishedRef = useRef(false)
 
-  // Start the progress animation immediately — independent of data loading.
+  // The exit function — called when progress reaches 100 OR user skips.
+  const exit = () => {
+    if (finishedRef.current) return
+    finishedRef.current = true
+    setProgress(100)
+    // Small delay so the user sees 100% before the curtain lifts.
+    setTimeout(() => setExiting(true), 250)
+  }
+
+  // Main progress animation — runs to 100% over 2.5s, then exits.
+  // If data arrives early, we fast-forward to 100%.
   useEffect(() => {
-    if (!enabled || preloaderDone) return
+    if (!enabled || preloaderDone || exiting) return
 
-    // Reduced-motion: skip animation, finish quickly.
+    // Reduced-motion: skip straight to exit.
     if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setProgress(100)
-      const t = setTimeout(() => finish(), 300)
-      return () => clearTimeout(t)
+      exit()
+      return
     }
 
-    // Smooth ease-out progress: starts fast, slows near 100.
-    // Reaches ~95% in 2.2s, then waits for data before hitting 100.
-    const duration = 2200
+    const duration = 2500
     const start = performance.now()
-    let raf = 0
 
     const tick = (now: number) => {
       const elapsed = now - start
       const p = Math.min(1, elapsed / duration)
-      // easeOutCubic for smooth deceleration
-      const eased = 1 - Math.pow(1 - p, 3)
-      const targetProgress = eased * 95 // cap at 95% until data is ready
-      setProgress(Math.round(targetProgress))
-      if (p < 1) raf = requestAnimationFrame(tick)
+      const eased = 1 - Math.pow(1 - p, 3) // easeOutCubic
+      setProgress(Math.round(eased * 100))
+
+      if (p < 1 && !finishedRef.current) {
+        rafRef.current = requestAnimationFrame(tick)
+      } else if (!finishedRef.current) {
+        // Progress animation complete — exit.
+        exit()
+      }
     }
-    raf = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(raf)
+    rafRef.current = requestAnimationFrame(tick)
+
+    return () => cancelAnimationFrame(rafRef.current)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [enabled, preloaderDone])
 
-  // When data is ready, push progress to 100 and trigger the exit.
+  // If data arrives before the progress animation finishes, fast-forward.
   useEffect(() => {
-    if (!enabled || preloaderDone) return
-    if (data && progress >= 95 && !doneRef.current) {
-      doneRef.current = true
-      setProgress(100)
-      // Small delay so the user sees 100% before the curtain lifts.
-      const t = setTimeout(() => setExiting(true), 300)
-      return () => clearTimeout(t)
+    if (data && !finishedRef.current && progress > 80) {
+      // Data is ready and we're past 80% — jump to exit.
+      exit()
     }
-  }, [data, progress, enabled, preloaderDone])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, progress])
 
-  // After the exit animation completes, mark as done.
+  // After the exit animation completes, mark as done permanently.
   useEffect(() => {
     if (!exiting) return
-    const t = setTimeout(() => setPreloaderDone(true), 900)
+    const t = setTimeout(() => setPreloaderDone(true), 1000)
     return () => clearTimeout(t)
   }, [exiting, setPreloaderDone])
 
-  const finish = () => {
-    if (doneRef.current) return
-    doneRef.current = true
-    setProgress(100)
-    setExiting(true)
-    // setPreloaderDone is called by the exiting effect after the animation.
+  // Skip button handler.
+  const handleSkip = () => {
+    exit()
   }
 
-  // Hidden when done or disabled.
   if (preloaderDone || !enabled) return null
 
   return (
     <AnimatePresence>
       {!exiting && (
         <motion.div
-          key="preloader"
+          key="preloader-overlay"
           className="fixed inset-0 z-[9998] flex flex-col items-center justify-center bg-[#06130B] overflow-hidden"
-          exit={{ opacity: 0, transition: { duration: 0.4 } }}
+          exit={{ y: '-100%', transition: { duration: 0.9, ease: [0.76, 0, 0.24, 1] } }}
         >
-          {/* Aurora blobs — subtle, slow floating */}
+          {/* Aurora blobs — slow floating */}
           <motion.div
-            className="absolute rounded-full blur-[100px]"
+            className="absolute rounded-full blur-[100px] pointer-events-none"
             style={{ width: 500, height: 500, top: '5%', left: '0%', background: 'rgba(255, 213, 0, 0.25)' }}
             animate={{ x: [0, 40, 0], y: [0, -30, 0], scale: [1, 1.1, 1] }}
             transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
           />
           <motion.div
-            className="absolute rounded-full blur-[100px]"
+            className="absolute rounded-full blur-[100px] pointer-events-none"
             style={{ width: 450, height: 450, bottom: '0%', right: '5%', background: 'rgba(31, 166, 77, 0.22)' }}
             animate={{ x: [0, -40, 0], y: [0, 30, 0], scale: [1, 0.9, 1] }}
             transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
           />
 
-          {/* Curtain reveal layers — these slide away on exit to expose the site */}
-          <motion.div
-            className="absolute inset-0 bg-[#06130B]"
-            animate={exiting ? { y: '-100%' } : { y: 0 }}
-            transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1] }}
-          />
-
           {/* Content */}
           <div className="relative z-10 flex flex-col items-center px-6 text-center">
-            {/* Logo — scale + fade in with a soft glow pulse */}
+            {/* Logo with pulsing glow ring */}
             <motion.div
               initial={{ scale: 0.6, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
               className="relative mb-8"
             >
-              {/* Glow ring behind logo */}
               <motion.div
-                className="absolute inset-0 rounded-full"
+                className="absolute inset-0 rounded-full pointer-events-none"
                 style={{ background: 'radial-gradient(circle, rgba(255,213,0,0.4) 0%, transparent 70%)' }}
                 animate={{ scale: [1, 1.3, 1], opacity: [0.4, 0.7, 0.4] }}
                 transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
               />
-              {/* Logo image */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/brand/logo.png"
@@ -145,7 +139,7 @@ export function Preloader() {
               />
             </motion.div>
 
-            {/* Title — staggered letter reveal */}
+            {/* Title */}
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -156,7 +150,7 @@ export function Preloader() {
               <span className="text-white">ACADEMY</span>
             </motion.h1>
 
-            {/* Tagline — fade in after title */}
+            {/* Tagline */}
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -178,7 +172,7 @@ export function Preloader() {
                 <span className="tabular-nums font-mono">{progress}%</span>
               </div>
               <div className="h-[3px] w-full rounded-full bg-white/10 overflow-hidden">
-                <motion.div
+                <div
                   className="h-full rounded-full"
                   style={{
                     width: `${progress}%`,
@@ -194,7 +188,7 @@ export function Preloader() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.5, duration: 0.5 }}
-              onClick={finish}
+              onClick={handleSkip}
               className="mt-10 text-xs uppercase tracking-[0.25em] text-white/30 hover:text-[#FFD500] transition-colors"
             >
               Skip intro →
