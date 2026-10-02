@@ -73,3 +73,8 @@ prompt
 # downloaded assets
 /download/
 /upload/
+
+# junk
+*.zip
+.fuse_hidden*
+/toWEBP.zip
